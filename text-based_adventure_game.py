@@ -30,11 +30,11 @@ class Entity:
 
 @dataclass
 class Game:
-    player: Entity
-    entities: dict[EntityId, Entity]
+    player: Entity = Entity()
+    entities: dict[str, Entity] = field(default_factory = lambda: {})
 
     def look(self):
-        location = self.entities[self.player.location[0]]
+        location = self.entities[self.player.location[-1]]
         print(location.description_long)
         contains = ""
         for entity in location.inventory:
@@ -49,14 +49,17 @@ class Game:
     def go(self, name):
         for entity in self.get_surroundings():
             if entity.name == name:
-                self.player.location[0].remove(self.player.id)
-                entity.append(self.player.id)
+                self.player.location.append(entity.id)
+                entity.inventory.append(self.player.id)
 
-    def take(self):
-        pass
+    def take(self, name):
+        for entity in self.get_surroundings():
+            if entity.name == name:
+                entity.inventory.remove(entity.id)
+                self.player.inventory.append(entity.id)
 
     def help(self):
-        pass
+        print('> help')
 
     def inventory(self):
         pass
@@ -71,13 +74,23 @@ class Game:
     }
 
     def get_surroundings(self) -> list[Entity]:
-        return self.entities[self.player.location[0]].inventory
+        return [self.entities[id] for id in self.entities[self.player.location[0]].inventory]
 
-    def loop(self, prompt):
-        input = input().split()
+    def loop(self):
+        while True:
+            self.parse_input(input('< ').split())
 
     def parse_input(
-        self,
+        self, input
     ):
         for token in input:
-            pass
+            if token in self.actions.keys():
+                self.actions[token](self)
+
+
+with open('Data/player.json', 'r') as data:
+    player = Entity.from_json(data.read())
+    print(player)
+
+game = Game()
+game.loop()
