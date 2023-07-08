@@ -1,0 +1,9 @@
+{
+	"id": "52c422e8-9ec7-4558-aee0-5c6722731407",
+	"name": "sympathetic villager",
+	"inventory": [],
+	"location": ["c040205c-96af-40b5-9f34-85c3ec45cc10"],
+	"description_long": "Amongst the crowd of pitchfork wielding, sack-headed villagers stands out one local whom (despite the presence of the sack making their body language and intentions difficult to gauge exactly) appears more sympathetic to reason",
+	"description_short": "Could this sympathetic villager aid in your current predicament?",
+	"hit_points": 100
+}

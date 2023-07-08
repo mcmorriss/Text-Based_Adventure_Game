@@ -5,6 +5,7 @@ import uuid
 from typing import NewType
 import json
 import sys
+import os
 
 
 EntityId = NewType("EntityId", str)
@@ -30,17 +31,17 @@ class Entity:
 
 @dataclass
 class Game:
-    player: Entity = Entity()
+    player: Entity = field(default_factory = lambda : Entity())
     entities: dict[str, Entity] = field(default_factory = lambda: {})
 
     def look(self):
         location = self.entities[self.player.location[-1]]
-        print(location.description_long)
-        contains = ""
-        for entity in location.inventory:
-            contains += self.entities[entity].name.join(", ")
-        print(f"contains {contains}")
-
+        print(f'> {location.description_long}')
+        print("> This room contains: ", end="")
+        for i in range(len(location.inventory) - 1):
+            print(f'{self.entities[location.inventory[i]].name}, ', end="")
+        print(self.entities[location.inventory[-1]].name)
+            
     def look_at(self, name):
         for entity in self.get_surroundings():
             if entity.name == name:
@@ -59,14 +60,19 @@ class Game:
                 self.player.inventory.append(entity.id)
 
     def help(self):
-        print('> help')
+        print("> possible actions include: ", end="")
+        actions = list(self.actions.keys())
+        for i in range(len(actions) - 1):
+            print(f'{actions[i]}, ', end="")
+        print(actions[-1])
+
 
     def inventory(self):
         pass
 
     actions = {
         "look": look,
-        "look_at": look_at,
+        "look at": look_at,
         "go": go,
         "take": take,
         "help": help,
@@ -78,19 +84,33 @@ class Game:
 
     def loop(self):
         while True:
-            self.parse_input(input('< ').split())
+            self.parse_input(iter(input(': ').split()))
 
     def parse_input(
         self, input
     ):
-        for token in input:
-            if token in self.actions.keys():
-                self.actions[token](self)
+        match next(input):
+            case "look":
+                try:
+                    match next(input):
+                        case "at":
+                            self.look_at(input.next())
+                except:
+                    self.look()
+            case "help":
+                self.help()
+            case _:
+                print("> I'm not sure what you mean")
 
-
-with open('Data/player.json', 'r') as data:
-    player = Entity.from_json(data.read())
-    print(player)
+    def load_entities(self):
+        for filename in os.listdir('Data'):
+            if filename.endswith('.json'):
+                with open(f'Data/{filename}', 'r') as data:
+                    entity = Entity.from_json(data.read())
+                    if entity.name == 'you':
+                        self.player = entity
+                    self.entities[entity.id] = entity
 
 game = Game()
+game.load_entities()
 game.loop()
