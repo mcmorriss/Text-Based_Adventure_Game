@@ -6,6 +6,7 @@
         "go",
         "help",
         "inventory",
-        "take"
+        "take",
+        "talk"
     ]
 }
