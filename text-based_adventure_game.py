@@ -1,7 +1,7 @@
 from abc import ABC
 from dataclasses import dataclass, field
 import uuid
-from typing import NewType
+from typing import NewType, List
 import json
 import sys
 import os
@@ -27,6 +27,7 @@ class Entity:
     destination: EntityId = None
     dialogue: str = None
     takeable: bool = False
+    damage: List[int] = field(default_factory=list)
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -205,12 +206,12 @@ class Game:
                     file_path = os.path.join(root, file)
                     with open(file_path, "r") as data:
                         match root:
-                            case "Data\\New":
-                                entity = Entity.from_json(data.read())
-                                self.entities[entity.id] = entity
                             case "Data\\Words":
                                 entity = Entity.from_json(data.read())
                                 self.words[entity.name] = entity
+                            case _:
+                                entity = Entity.from_json(data.read())
+                                self.entities[entity.id] = entity
                         if entity.name == "you":
                             self.player = entity
                         if entity.name == "parser":
