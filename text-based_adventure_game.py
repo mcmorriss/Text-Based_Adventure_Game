@@ -7,6 +7,7 @@ import json
 import sys
 import os
 import pickle
+import random
 from functools import partialmethod
 
 EntityId = NewType("EntityId", str)
@@ -22,6 +23,8 @@ class Entity:
     description_long: str = ""
     description_short: str = ""
     hit_points: int = sys.maxsize
+
+    def __init__(self):
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -66,6 +69,22 @@ class Game:
             if entity.name == name:
                 entity.inventory.remove(entity.id)
                 self.player.inventory.append(entity.id)
+
+    def attack(self, name):
+        for entity in self.get_surroundings(self.player):
+            if entity.name == name:
+                items = self.get_inventory(self.player)
+                weapon = items[0]
+                # Need to rethink how to access the damage value in the weapon; will likely be easier once we have the
+                # "equiped" slot implemented.
+                damage = [random.randint(weapon.damage[0], weapon.damage[1]) for _ in range(1)]
+                entity.hit_points -= damage
+                if entity.hit_points >= 0:
+                    print(
+                        f"{entity.name} has been destroyed by your {weapon}!"
+                    )
+                    # Need to remove from entity from room, need to rethink how to access it
+                    # entity.inventory.remove(entity.id)
 
     @partialmethod
     def help(self):
