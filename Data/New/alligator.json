@@ -1,0 +1,9 @@
+{
+	"id": "9c6e74e0-e5f2-4494-a681-c2d005c92b59",
+	"name": "alligator",
+	"inventory": [""],
+	"location": ["d2ab02c1-b04b-4742-8b1a-38195e14dd47"],
+	"description_long": "This absolute specimen of reptilian dental superiority has taken up residence in the sewer. Was once perhaps a crocodilian pet that been flushed upon growing to a size too onerous to manage",
+	"description_short": "an aligator",
+    "dialogue": "The aligator hisses and bellows"
+}
