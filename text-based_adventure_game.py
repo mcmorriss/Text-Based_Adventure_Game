@@ -29,11 +29,13 @@ class Entity:
     destination: EntityId = None
     dialogue: str = None
     takeable: bool = False
+    taken: bool = False
     damage: List[int] = field(default_factory=list)
     combat_level: int = None
     combat_experience: int = None
     equiped: EntityId = None
     equipable: bool = False
+    discovered: bool = False
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -86,6 +88,14 @@ class Game:
         """returns a list of the player's inventory"""
         return [self.entities[id] for id in self.entities[entity.id].inventory]
 
+    def check_inventory(self, name):
+        """Gets an entity by name from the entity's inventory."""
+        for i in range(0, len(self.player.inventory)):
+            check = self.get_global_entity(self.player.inventory[i])
+            if check.name == name:
+                return check
+        return False
+
     @partialmethod
     def look(self, name=None):
         if name is not None:
@@ -129,6 +139,21 @@ class Game:
             print(f'You take {entity.name}')
             self.player.inventory.append(entity.id)
             self.get_global_entity(self.player.location[-1]).inventory.remove(entity.id)
+
+
+    @partialmethod
+    def drop(self, name):
+        entity = self.check_inventory(name)
+        drop_location = self.player.location[-1]
+        if not entity:
+            print("Cannot be found or does not exist.")
+        elif not entity.taken:
+            print(f'{entity.name} cannot be dropped, because it is not in the player`s inventory.')
+        else:
+            print(f'You drop {entity.name} on the floor in this room.')
+            self.player.inventory.remove(entity.id)
+            self.get_global_entity(drop_location).inventory.append(entity.id)
+            entity.taken = False
 
     @partialmethod
     def equip(self, name):
@@ -191,9 +216,6 @@ class Game:
 
     def get_surroundings(self, entity) -> list[Entity]:
         return [self.entities[id] for id in self.entities[entity.location[-1]].inventory]
-
-    def get_inventory(self, entity) -> list[Entity]:
-        return [self.entities[id] for id in self.entities[entity.id].inventory]
 
     def get_level(self, level_type):
         level = 0
