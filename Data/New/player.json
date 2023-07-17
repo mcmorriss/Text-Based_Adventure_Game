@@ -5,6 +5,8 @@
 	"location": ["c040205c-96af-40b5-9f34-85c3ec45cc10"],
 	"description_long": "One of the universe's own prototypes. A misbegotten sad-clown of some kind never even considered for mass production. Too fortunate to live, and too unlucky to die.",
 	"description_short": "Our ill-fated protagonist",
-	"hit_points": 100
+	"hit_points": 100,
+	"combat_experience": 0,
+	"combat_level": 0
 }
 

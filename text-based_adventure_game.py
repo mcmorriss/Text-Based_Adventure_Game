@@ -30,6 +30,8 @@ class Entity:
     dialogue: str = None
     takeable: bool = False
     damage: List[int] = field(default_factory=list)
+    combat_level: int = None
+    combat_experience: int = None
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -121,11 +123,13 @@ class Game:
                 print(
                     f"{weapon.name} did {damage} points of damage to {entity.name}"
                 )
+                self.set_exp_level("combat_level")
                 if entity.hit_points >= 0:
                     print(
                         f"{entity.name} has been destroyed by your {weapon}!"
                     )
                     self.get_global_entity(self.player.location[-1]).inventory.remove(entity.id)
+                    self.set_exp_level("combat_level")
 
     @partialmethod
     def help(self):
@@ -155,6 +159,35 @@ class Game:
 
     def get_inventory(self, entity) -> list[Entity]:
         return [self.entities[id] for id in self.entities[entity.id].inventory]
+
+    def get_level(self, level_type):
+        level = 0
+        if level_type == "combat" or level_type == "combat_level":
+            level = self.player.combat_level
+            print(
+                f"Your combat level is {level}"
+            )
+
+    def set_exp_level(self, exp_type):
+        """ Leveling system called by functions that allow players to do actions associated with the 3 skills"""
+        exp = self.player.combat_experience
+        level = 0
+        if exp_type == "combat_level":
+            exp = self.player.combat_experience
+            level = self.player.combat_level
+        # Can add the other 2 leveling features when base action is implemented
+
+        exp += 1
+        if exp == 1:
+            level = 1
+        if exp == 4:
+            level = 2
+        if exp >= 7:
+            level = 3
+        if exp == 1 or exp == 4 or exp == 7:
+            print(
+                f"Your {exp_type} is now level {level}!"
+            )
 
     def loop(self):
         while True:
