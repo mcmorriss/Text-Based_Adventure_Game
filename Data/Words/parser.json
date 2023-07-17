@@ -7,6 +7,8 @@
         "help",
         "inventory",
         "take",
-        "talk"
+        "talk",
+        "equip",
+        "attack"
     ]
 }

@@ -28,6 +28,8 @@ class Entity:
     dialogue: str = None
     takeable: bool = False
     damage: List[int] = field(default_factory=list)
+    equiped: EntityId = None
+    equipable: bool = False
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -63,6 +65,21 @@ class Game:
             ),
             None,
         )
+    
+    def get_inventory_entity(self, name):
+        """Gets an entity by name from the player's inventory"""
+        return next(
+            (
+                entity
+                for entity in self.get_inventory(self.player)
+                if entity.name == name
+            ),
+            None,
+        )
+    
+    def get_inventory(self, entity) -> list[Entity]:
+        """returns a list of the player's inventory"""
+        return [self.entities[id] for id in self.entities[entity.id].inventory]
 
     @partialmethod
     def look(self, name=None):
@@ -109,11 +126,28 @@ class Game:
             self.player.inventory.append(entity.id)
             self.get_global_entity(self.player.location[-1]).inventory.remove(entity.id)
 
+    @partialmethod
+    def equip(self, name):
+        """equips an entity from the player's inventory to be used in an attack"""
+        entity = self.get_inventory_entity(name)
+        if not entity:
+            print("Cannot be found or does not exit")
+            return
+        if not entity.equipable:
+            print("Cannot be equiped")
+            return
+        if self.player.equiped != None:
+            currently_equiped = self.entities[self.player.equiped]
+            print(f'You unequip {currently_equiped.name}')
+            print(f'{currently_equiped.name} sent to your inventory')
+        self.player.equiped = entity.id
+        print(f'You equip {entity.name}')
+
+    @partialmethod
     def attack(self, name):
         for entity in self.get_surroundings(self.player):
             if entity.name == name:
-                items = self.get_inventory(self.player)
-                weapon = items[0]
+                weapon = self.entities[self.player.equiped]
                 # Need to rethink how to access the damage value in the weapon; will likely be easier once we have the
                 # "equiped" slot implemented.
                 damage = [random.randint(weapon.damage[0], weapon.damage[1]) for _ in range(1)]
@@ -150,9 +184,6 @@ class Game:
 
     def get_surroundings(self, entity) -> list[Entity]:
         return [self.entities[id] for id in self.entities[entity.location[-1]].inventory]
-
-    def get_inventory(self, entity) -> list[Entity]:
-        return [self.entities[id] for id in self.entities[entity.id].inventory]
 
     def loop(self):
         while True:
