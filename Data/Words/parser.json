@@ -9,6 +9,7 @@
         "take",
         "talk",
         "equip",
-        "attack"
+        "attack",
+        "drop"
     ]
 }
