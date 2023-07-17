@@ -11,8 +11,10 @@ from functools import partialmethod
 
 EntityId = NewType("EntityId", str)
 
+
 class Entity:
     pass
+
 
 @dataclass
 class Entity:
@@ -36,6 +38,7 @@ class Entity:
     def from_json(cls, payload):
         return cls(**json.loads(payload))
 
+
 @dataclass
 class Game:
     player: Entity = field(default_factory=lambda: Entity())
@@ -52,7 +55,7 @@ class Game:
             for entity in self.entities:
                 if entity.name == identifier:
                     return entity
-                
+
     def get_local_entity(self, entity, name) -> Entity:
         """Gets an entity by name from the entity's immediate surroundings"""
         return next(
@@ -96,7 +99,6 @@ class Game:
             print(f'You travel through {name} and arrive at {self.get_global_entity(door.destination).name}')
             self.look()
 
-
     @partialmethod
     def take(self, name):
         entity = self.get_local_entity(self.player, name)
@@ -114,16 +116,16 @@ class Game:
             if entity.name == name:
                 items = self.get_inventory(self.player)
                 weapon = items[0]
-                # Need to rethink how to access the damage value in the weapon; will likely be easier once we have the
-                # "equiped" slot implemented.
                 damage = [random.randint(weapon.damage[0], weapon.damage[1]) for _ in range(1)]
                 entity.hit_points -= damage
+                print(
+                    f"{weapon.name} did {damage} points of damage to {entity.name}"
+                )
                 if entity.hit_points >= 0:
                     print(
                         f"{entity.name} has been destroyed by your {weapon}!"
                     )
-                    # Need to remove from entity from room, need to rethink how to access it
-                    # entity.inventory.remove(entity.id)
+                    self.get_global_entity(self.player.location[-1]).inventory.remove(entity.id)
 
     @partialmethod
     def help(self):
@@ -216,6 +218,7 @@ class Game:
                             self.player = entity
                         if entity.name == "parser":
                             self.parser = entity
+
 
 game = Game()
 game.load_entities()
