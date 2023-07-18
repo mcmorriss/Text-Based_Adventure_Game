@@ -5,9 +5,9 @@ from typing import NewType, List
 import json
 import sys
 import os
-import pickle
 import random
 from functools import partialmethod
+from pathlib import PurePath
 
 EntityId = NewType("EntityId", str)
 
@@ -293,12 +293,15 @@ class Game:
 
     def load_entities(self):
         for root, dirs, files in os.walk("Data"):
+            root = os.path.join(root).replace("\\","/")
+            print(root)
             for file in files:
                 if file.endswith(".json"):
                     file_path = os.path.join(root, file)
                     with open(file_path, "r") as data:
                         match root:
-                            case "Data\\Words":
+                            case "Data/Words":
+                                print(root)
                                 entity = Entity.from_json(data.read())
                                 self.words[entity.name] = entity
                             case _:
