@@ -176,8 +176,8 @@ class Game:
     def attack(self, name):
         for entity in self.get_surroundings(self.player):
             if entity.name == name:
-                items = self.get_inventory(self.player)
-                weapon = items[0]
+                held_item = self.player.equiped
+                weapon = self.get_global_entity(held_item)
                 damage = [random.randint(weapon.damage[0], weapon.damage[1]) for _ in range(1)]
                 entity.hit_points -= damage
                 print(
