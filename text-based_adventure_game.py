@@ -178,13 +178,13 @@ class Game:
             if entity.name == name:
                 held_item = self.player.equiped
                 weapon = self.get_global_entity(held_item)
-                damage = [random.randint(weapon.damage[0], weapon.damage[1]) for _ in range(1)]
-                entity.hit_points -= damage
+                damage = random.randint(weapon.damage[0], weapon.damage[1])
+                entity.hit_points -= (damage * self.player.combat_level) + 1
                 print(
                     f"{weapon.name} did {damage} points of damage to {entity.name}"
                 )
                 self.set_exp_level("combat_level")
-                if entity.hit_points >= 0:
+                if entity.hit_points <= 0:
                     print(
                         f"{entity.name} has been destroyed by your {weapon}!"
                     )
