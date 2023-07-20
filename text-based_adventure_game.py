@@ -186,12 +186,12 @@ class Game:
             damage = random.randint(weapon.damage[0], weapon.damage[1])
             entity.hit_points -= (damage * self.player.combat_level) + 1
             print(
-                f"{weapon.name} did {damage} points of damage to {entity.name}"
+                f"The {weapon.name} did {damage} points of damage to {entity.name}"
             )
             self.set_exp_level("combat_level")
             if entity.hit_points <= 0:
                 print(
-                    f"{entity.name} has been destroyed by your {weapon}!"
+                    f"The {entity.name} has been destroyed by your {weapon}!"
                 )
                 entity.lootable = True
                 # Add "dead" label?
