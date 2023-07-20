@@ -10,6 +10,7 @@
         "talk",
         "equip",
         "attack",
-        "drop"
+        "drop",
+        "loot"
     ]
 }

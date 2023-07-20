@@ -142,6 +142,7 @@ class Game:
             print(f'You take {entity.name}')
             self.player.inventory.append(entity.id)
             self.get_global_entity(self.player.location[-1]).inventory.remove(entity.id)
+            entity.location.append(self.player.id)
 
 
     @partialmethod
@@ -197,6 +198,7 @@ class Game:
                 # Add "dead" label?
                 self.set_exp_level("combat_level")
 
+    @partialmethod
     def loot(self, name):
         entity = self.get_local_entity(self.player, name)
         if not entity:
