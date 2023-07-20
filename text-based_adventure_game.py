@@ -30,9 +30,12 @@ class Entity:
     dialogue: str = None
     takeable: bool = False
     taken: bool = False
+    lootable: bool = False
     damage: List[int] = field(default_factory=list)
     combat_level: int = None
     combat_experience: int = None
+    loot_level: int = None
+    loot_experience: int = None
     equiped: EntityId = None
     equipable: bool = False
     discovered: bool = False
@@ -160,10 +163,10 @@ class Game:
         """equips an entity from the player's inventory to be used in an attack"""
         entity = self.get_inventory_entity(name)
         if not entity:
-            print("Cannot be found or does not exit")
+            print(f"{name} cannot be found or does not exit")
             return
         if not entity.equipable:
-            print("Cannot be equiped")
+            print(f"{name} cannot be equiped")
             return
         if self.player.equiped != None:
             currently_equiped = self.entities[self.player.equiped]
@@ -174,22 +177,38 @@ class Game:
 
     @partialmethod
     def attack(self, name):
-        for entity in self.get_surroundings(self.player):
-            if entity.name == name:
-                held_item = self.player.equiped
-                weapon = self.get_global_entity(held_item)
-                damage = random.randint(weapon.damage[0], weapon.damage[1])
-                entity.hit_points -= (damage * self.player.combat_level) + 1
+        entity = self.get_local_entity(self.player, name)
+        if not entity:
+            print(f"{name} Cannot be found or does not exist")
+        else:
+            held_item = self.player.equiped
+            weapon = self.get_global_entity(held_item)
+            damage = random.randint(weapon.damage[0], weapon.damage[1])
+            entity.hit_points -= (damage * self.player.combat_level) + 1
+            print(
+                f"{weapon.name} did {damage} points of damage to {entity.name}"
+            )
+            self.set_exp_level("combat_level")
+            if entity.hit_points <= 0:
                 print(
-                    f"{weapon.name} did {damage} points of damage to {entity.name}"
+                    f"{entity.name} has been destroyed by your {weapon}!"
                 )
+                entity.lootable = True
+                # Add "dead" label?
                 self.set_exp_level("combat_level")
-                if entity.hit_points <= 0:
-                    print(
-                        f"{entity.name} has been destroyed by your {weapon}!"
-                    )
-                    self.get_global_entity(self.player.location[-1]).inventory.remove(entity.id)
-                    self.set_exp_level("combat_level")
+
+    def loot(self, name):
+        entity = self.get_local_entity(self.player, name)
+        if not entity:
+            print(f"{name} Cannot be found or does not exist.")
+        if entity.lootable is not True:
+            print(f"{name} cannot be looted right now.")
+        else:
+            looted_item = entity.inventory[0]
+            entity.inventory.remove(looted_item)
+            self.player.inventory.append(looted_item)
+            print(f"You take {looted_item}. It has been stored in your inventory.")
+            self.set_exp_level("loot_level")
 
     @partialmethod
     def help(self):
@@ -232,7 +251,10 @@ class Game:
         if exp_type == "combat_level":
             exp = self.player.combat_experience
             level = self.player.combat_level
-        # Can add the other 2 leveling features when base action is implemented
+        if exp_type == "loot_level":
+            exp = self.player.loot_experience
+            level = self.player.loot_level
+        # Can add the other leveling feature when base action is implemented
 
         exp += 1
         if exp == 1:
