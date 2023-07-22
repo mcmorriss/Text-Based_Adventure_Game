@@ -3,8 +3,8 @@
 	"name": "factory",
 	"inventory": [],
 	"location": [],
-	"description_long": "",
+	"description_long": "Penrose stairs and strange loops. The factory runs without worker or overseer.",
 	"description_short": "a factory",
 	"feature_one": "7e55589a-96e4-4a3a-a260-d86267fcc588",
-	"feature_two": ""
+	"feature_two": "94f49eed-f6fa-4930-ba0e-798565524896"
 }
