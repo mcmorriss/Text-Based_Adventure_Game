@@ -39,6 +39,9 @@ class Entity:
     equiped: EntityId = None
     equipable: bool = False
     discovered: bool = False
+    feature_one: EntityId = None
+    feature_two: EntityId = None
+    color: str = ""
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -107,9 +110,7 @@ class Game:
         location = self.entities[self.player.location[-1]]
         print(f"> {location.description_long}")
         print("> This room contains: ", end="")
-        for i in range(len(location.inventory) - 1):
-            print(f"{self.entities[location.inventory[i]].name}, ", end="")
-        print(self.entities[location.inventory[-1]].name)
+        print(*[entity.name for entity in self.get_inventory(location)], sep=", ")
 
     def look_at(self, name):
         for entity in self.get_surroundings(self.player):

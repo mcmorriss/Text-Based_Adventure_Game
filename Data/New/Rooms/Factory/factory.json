@@ -4,5 +4,7 @@
 	"inventory": [],
 	"location": [],
 	"description_long": "",
-	"description_short": "a factory"
+	"description_short": "a factory",
+	"feature_one": "7e55589a-96e4-4a3a-a260-d86267fcc588",
+	"feature_two": ""
 }

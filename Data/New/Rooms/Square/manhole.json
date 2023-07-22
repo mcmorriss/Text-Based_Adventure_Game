@@ -4,5 +4,6 @@
 	"location": ["c040205c-96af-40b5-9f34-85c3ec45cc10"],
 	"description_long": "Could this utilitarian piece of the surrounding civil engineering provide an out to your current predicament?",
 	"unlocked_by": "52c422e8-9ec7-4558-aee0-5c6722731407",
-	"destination": "d2ab02c1-b04b-4742-8b1a-38195e14dd47"
+	"destination": "d2ab02c1-b04b-4742-8b1a-38195e14dd47",
+	"color": "\\x1b[6;30;42m"
 }
