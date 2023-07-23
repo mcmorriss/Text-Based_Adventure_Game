@@ -231,6 +231,14 @@ class Game:
         else:
             print(npc.dialogue)
 
+    @partialmethod
+    def loadgame(self):
+        self.load_entities('data/save')
+
+    @partialmethod
+    def savegame(self):
+        pass
+
     def inventory(self):
         print(
             f"Your inventory currently holds {[entity.name for entity in self.get_inventory(self.player)]}"
@@ -316,15 +324,16 @@ class Game:
         else:
             self.parse_input(input, current_word, action)
 
-    def load_entities(self):
-        for root, dirs, files in os.walk("Data"):
-            root = os.path.join(root).replace("\\","/")
+    def load_entities(self, directory):
+        for root, _, files in os.walk(directory):
+            root = os.path.join(root).replace("\\", "/")
+            base = os.path.basename(root)
             for file in files:
                 if file.endswith(".json"):
                     file_path = os.path.join(root, file)
                     with open(file_path, "r") as data:
-                        match root:
-                            case "Data/Words":
+                        match base:
+                            case "words":
                                 entity = Entity.from_json(data.read())
                                 self.words[entity.name] = entity
                             case _:
@@ -337,5 +346,5 @@ class Game:
 
 
 game = Game()
-game.load_entities()
+game.load_entities("data/new")
 game.loop()

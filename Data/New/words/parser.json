@@ -11,6 +11,7 @@
         "equip",
         "attack",
         "drop",
-        "loot"
+        "loot",
+        "loadgame"
     ]
 }
