@@ -254,6 +254,15 @@ class Game:
             print(
                 f"Your combat level is {level}"
             )
+        if level_type == "looting" or level_type == "looting_level":
+            level = self.player.loot_level
+            print(
+                f"Your combat level is {level}"
+            )
+        else:
+            print(
+                f"'{level_type}' is not a valid entry. Please enter 'combat' or 'looting'"
+            )
 
     def set_exp_level(self, exp_type):
         """ Leveling system called by functions that allow players to do actions associated with the 3 skills"""
