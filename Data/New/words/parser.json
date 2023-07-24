@@ -12,6 +12,7 @@
         "attack",
         "drop",
         "loot",
-        "loadgame"
+        "loadgame",
+        "savegame"
     ]
 }

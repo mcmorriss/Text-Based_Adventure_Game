@@ -44,7 +44,7 @@ class Entity:
     color: str = ""
 
     def to_json(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
+        return json.dumps(self, indent=4,default=lambda o: o.__dict__)
 
     @classmethod
     def from_json(cls, payload):
@@ -237,7 +237,10 @@ class Game:
 
     @partialmethod
     def savegame(self):
-        pass
+        for entity in self.entities.values():
+            with open(f'data/save/{entity.name}.json','w') as file:
+                file.write(entity.to_json())
+
 
     def inventory(self):
         print(
