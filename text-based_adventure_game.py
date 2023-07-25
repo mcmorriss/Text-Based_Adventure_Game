@@ -96,6 +96,7 @@ class Game:
         entity = self.entities.get_local_entity(self.entities.player, name)
         if not entity:
             print(f"{name} Cannot be found or does not exist")
+            return
         if not self.entities.player.equiped:
             print(f"Nothing equiped. Equip a weapon before attacking")
         else:
@@ -149,6 +150,36 @@ class Game:
             print("Does not appear to be very talkative. Best left to its own devices.")
         else:
             print(npc.dialogue)
+
+    @partialmethod
+    def crouch(self):
+        if self.entities.player.crouched is True:
+            print("You are already crouching")
+        else:
+            self.entities.player.crouched = True
+            print("You are now crouching")
+
+    @partialmethod
+    def standup(self):
+        if self.entities.player.crouched is False:
+            print("You are already standing")
+        else:
+            self.entities.player.crouched = False
+            print("You are now standing")
+
+    def consume(self, name):
+        entity = self.entities.get_inventory_entity(name)
+        if not entity:
+            print(f"{name} is not in your inventory")
+            return
+        elif not entity.consumable:
+            print(f"Er... I don't think {name} is something you can eat.")
+            return
+        else:
+            print(f"You consume {name}")
+            # Here we can either adding HP, or adding some effect, once we discuss
+            self.entities.player.inventory.remove(entity.id)
+
 
     @partialmethod
     def loadgame(self):

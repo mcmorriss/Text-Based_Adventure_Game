@@ -28,10 +28,12 @@ class Entity:
     loot_experience: int = None
     equiped: EntityId = None
     equipable: bool = False
+    consumable: bool = False
     discovered: bool = False
     feature_one: EntityId = ""
     feature_two: EntityId = ""
     color: str = ""
+    crouched: bool = False
 
     def to_json(self):
         return json.dumps(self, indent=4,default=lambda o: o.__dict__)
