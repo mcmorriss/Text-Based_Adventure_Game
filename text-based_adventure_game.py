@@ -102,13 +102,16 @@ class Game:
             held_item = self.entities.player.equiped
             weapon = self.entities.get_global_entity(held_item)
             damage = random.randint(weapon.damage[0], weapon.damage[1])
-            entity.hit_points -= (damage * self.entities.player.combat_level) + 1
+            total_damage = int(damage * self.entities.player.combat_level) + 1
+            entity.hit_points -= total_damage
+            if entity.hit_points <= 0:
+                entity.hit_points = 0
             print(
-                f"The {weapon.name} did {damage} points of damage to {entity.name}. {entity.hit_points} remain"
+                f"The {weapon.name} did {total_damage} points of damage to {entity.name}. {entity.hit_points} remain"
             )
             self.entities.set_exp_level("combat_level")
             if entity.hit_points <= 0:
-                print(f"The {entity.name} has been destroyed by your {weapon}!")
+                print(f"The {entity.name} has been destroyed by your {weapon.name}!")
                 entity.lootable = True
                 # Add "dead" label?
                 self.entities.set_exp_level("combat_level")
@@ -117,8 +120,10 @@ class Game:
     def loot(self, name):
         entity = self.entities.get_local_entity(self.entities.player, name)
         if not entity:
-            print(f"{name} Cannot be found or does not exist.")
-        if entity.lootable is not True:
+            print(f"The {name} Cannot be found or does not exist.")
+        elif not hasattr(entity, 'lootable'):
+            print(f"{name} cannot be looted or has no items")
+        elif entity.lootable is not True:
             print(f"{name} cannot be looted right now.")
         else:
             looted_item = entity.inventory[0]

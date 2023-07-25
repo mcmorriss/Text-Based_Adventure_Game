@@ -76,7 +76,7 @@ class Entities:
         if level_type == "looting" or level_type == "looting_level":
             level = self.player.loot_level
             print(
-                f"Your combat level is {level}"
+                f"Your looting level is {level}"
             )
         else:
             print(
@@ -85,27 +85,38 @@ class Entities:
 
     def set_exp_level(self, exp_type):
         """ Leveling system called by functions that allow players to do actions associated with the 3 skills"""
-        exp = self.player.combat_experience
+        exp = 0
         level = 0
+        # Combat
         if exp_type == "combat_level":
+            self.player.combat_experience += 1
             exp = self.player.combat_experience
+            if exp >= 1:
+                self.player.combat_level = 1
+            if exp >= 4:
+                self.player.combat_level = 2
+            if exp >= 7:
+                self.player.combat_level = 3
             level = self.player.combat_level
-        if exp_type == "loot_level":
-            exp = self.player.loot_experience
-            level = self.player.loot_level
-        # Can add the other leveling feature when base action is implemented
 
-        exp += 1
-        if exp == 1:
-            level = 1
-        if exp == 4:
-            level = 2
-        if exp >= 7:
-            level = 3
+        # Looting
+        if exp_type == "loot_level":
+            self.player.loot_experience += 1
+            exp = self.player.loot_experience
+            if exp >= 1:
+                self.player.loot_level = 1
+            if exp >= 4:
+                self.player.loot_level = 2
+            if exp >= 7:
+                self.player.loot_level = 3
+            level = self.player.loot_level
+
+        # Can add the other leveling feature when base action is implemented
+        # Check for level up.
         if exp == 1 or exp == 4 or exp == 7:
-            print(
-                f"Your {exp_type} is now level {level}!"
-            )
+            print(f"Your {exp_type} is now level {level}!")
+            if exp_type == "combat_level":
+                print(f"You now do {level}x damage!")
 
     def load_entities(self, directory):
         for root, _, files in os.walk(directory):
