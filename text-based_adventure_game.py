@@ -127,10 +127,10 @@ class Game:
         elif entity.lootable is not True:
             print(f"{name} cannot be looted right now.")
         else:
-            looted_item = entity.inventory[0]
-            entity.inventory.remove(looted_item)
-            self.entities.player.inventory.append(looted_item)
-            print(f"You take {looted_item}. It has been stored in your inventory.")
+            looted_item = self.entities.get_global_entity(entity.inventory[0])
+            entity.inventory.remove(looted_item.id)
+            self.entities.player.inventory.append(looted_item.id)
+            print(f"You loot a {looted_item.name} from the {name}. It has been stored in your inventory.")
             self.entities.set_exp_level("loot_level")
 
     @partialmethod
