@@ -1,207 +1,121 @@
-from abc import ABC
 from dataclasses import dataclass, field
-import uuid
-from typing import NewType, List
-import json
-import sys
-import os
 import random
 from functools import partialmethod
-from pathlib import PurePath
 
-EntityId = NewType("EntityId", str)
-
-
-class Entity:
-    pass
-
-
-@dataclass
-class Entity:
-    id: EntityId = str(uuid.uuid4())
-    name: str = ""
-    inventory: list[str] = field(default_factory=lambda: [])
-    location: list[str] = field(default_factory=lambda: [])
-    description_long: str = ""
-    description_short: str = ""
-    hit_points: int = sys.maxsize
-    unlocked_by: EntityId = None
-    destination: EntityId = None
-    dialogue: str = None
-    takeable: bool = False
-    taken: bool = False
-    lootable: bool = False
-    damage: List[int] = field(default_factory=list)
-    combat_level: int = None
-    combat_experience: int = None
-    loot_level: int = None
-    loot_experience: int = None
-    equiped: EntityId = None
-    equipable: bool = False
-    discovered: bool = False
-    feature_one: EntityId = None
-    feature_two: EntityId = None
-    color: str = ""
-
-    def to_json(self):
-        return json.dumps(self, indent=4,default=lambda o: o.__dict__)
-
-    @classmethod
-    def from_json(cls, payload):
-        return cls(**json.loads(payload))
+from entities import Entities
 
 
 @dataclass
 class Game:
-    player: Entity = field(default_factory=lambda: Entity())
-    parser: Entity = field(default_factory=lambda: Entity())
-    entities: dict[str, Entity] = field(default_factory=lambda: {})
-    words: dict[str, Entity] = field(default_factory=lambda: {})
-
-    def get_global_entity(self, identifier):
-        """Attempts to get the entity associated with the identifier
-        the identifier can be the id or a name"""
-        try:
-            return self.entities[identifier]
-        except:
-            for entity in self.entities:
-                if entity.name == identifier:
-                    return entity
-
-    def get_local_entity(self, entity, name) -> Entity:
-        """Gets an entity by name from the entity's immediate surroundings"""
-        return next(
-            (
-                entity
-                for entity in self.get_surroundings(self.player)
-                if entity.name == name
-            ),
-            None,
-        )
-    
-    def get_inventory_entity(self, name):
-        """Gets an entity by name from the player's inventory"""
-        return next(
-            (
-                entity
-                for entity in self.get_inventory(self.player)
-                if entity.name == name
-            ),
-            None,
-        )
-    
-    def get_inventory(self, entity) -> list[Entity]:
-        """returns a list of the player's inventory"""
-        return [self.entities[id] for id in self.entities[entity.id].inventory]
-
-    def check_inventory(self, name):
-        """Gets an entity by name from the entity's inventory."""
-        for i in range(0, len(self.player.inventory)):
-            check = self.get_global_entity(self.player.inventory[i])
-            if check.name == name:
-                return check
-        return False
+    entities: Entities = field(default_factory=lambda: Entities())
 
     @partialmethod
     def look(self, name=None):
         if name is not None:
             self.look_at(name)
             return
-        location = self.entities[self.player.location[-1]]
+        location = self.entities.entity(self.entities.player.location)
         print(f"> {location.description_long}")
         print("> This room contains: ", end="")
-        print(*[entity.name for entity in self.get_inventory(location)], sep=", ")
+        print(
+            *[entity.name for entity in self.entities.get_inventory(location)], sep=", "
+        )
 
     def look_at(self, name):
-        for entity in self.get_surroundings(self.player):
+        for entity in self.entities.get_surroundings(self.entities.player):
             if entity.name == name:
                 print(entity.description_long)
 
     @partialmethod
     def go(self, name):
-        door = self.get_local_entity(self.player, name)
+        door = self.entities.get_local_entity(self.entities.player, name)
         if not door:
             print("Cannot be found or does not exist")
         elif not door.destination:
             print("This does not appear to be traversable")
-        elif door.unlocked_by and door.unlocked_by not in self.player.inventory:
-            print("You are missing something in your inventory required to traverse through this")
+        elif (
+            door.unlocked_by and door.unlocked_by not in self.entities.player.inventory
+        ):
+            print(
+                "You are missing something in your inventory required to traverse through this"
+            )
         else:
-            self.player.location.append(door.destination)
-            door.inventory.append(self.player.id)
-            print(f'You travel through {name} and arrive at {self.get_global_entity(door.destination).name}')
+            self.entities.player.location = door.destination
+            door.inventory.append(self.entities.player.id)
+            print(
+                f"You travel through {name} and arrive at {self.entities.get_global_entity(door.destination).name}"
+            )
             self.look()
 
     @partialmethod
     def take(self, name):
-        entity = self.get_local_entity(self.player, name)
+        entity = self.entities.get_local_entity(self.entities.player, name)
         if not entity:
             print("Cannot be found or does not exist")
         elif not entity.takeable:
             print("Cannot be taken")
         else:
-            print(f'You take {entity.name}')
-            self.player.inventory.append(entity.id)
-            self.get_global_entity(self.player.location[-1]).inventory.remove(entity.id)
-            entity.location.append(self.player.id)
-
+            print(f"You take {entity.name}")
+            self.entities.player.inventory.append(entity.id)
+            self.entities.get_global_entity(
+                self.entities.player.location
+            ).inventory.remove(entity.id)
+            entity.location = self.entities.player.id
 
     @partialmethod
     def drop(self, name):
-        entity = self.check_inventory(name)
-        drop_location = self.player.location[-1]
+        entity = self.entities.get_inventory_entity(name)
+        drop_location = self.entities.player.location
         if not entity:
             print("Cannot be found or does not exist.")
-        elif not entity.taken:
-            print(f'{entity.name} cannot be dropped, because it is not in the player`s inventory.')
         else:
-            print(f'You drop {entity.name} on the floor in this room.')
-            self.player.inventory.remove(entity.id)
-            self.get_global_entity(drop_location).inventory.append(entity.id)
-            entity.taken = False
+            print(f"You drop {entity.name}.")
+            self.entities.player.inventory.remove(entity.id)
+            entity.location = self.entities.player.id
+            self.entities.get_global_entity(drop_location).inventory.append(entity.id)
 
     @partialmethod
     def equip(self, name):
         """equips an entity from the player's inventory to be used in an attack"""
-        entity = self.get_inventory_entity(name)
+        entity = self.entities.get_inventory_entity(name)
         if not entity:
             print(f"{name} cannot be found or does not exit")
             return
         if not entity.equipable:
             print(f"{name} cannot be equiped")
             return
-        if self.player.equiped != None:
-            currently_equiped = self.entities[self.player.equiped]
-            print(f'You unequip {currently_equiped.name}')
-            print(f'{currently_equiped.name} sent to your inventory')
-        self.player.equiped = entity.id
-        print(f'You equip {entity.name}')
+        if self.entities.player.equiped != None:
+            currently_equiped = self.entities.entity(self.entities.player.equiped)
+            print(f"You unequip {currently_equiped.name}")
+            print(f"{currently_equiped.name} sent to your inventory")
+        self.entities.player.equiped = entity.id
+        print(f"You equip {entity.name}")
 
     @partialmethod
     def attack(self, name):
-        entity = self.get_local_entity(self.player, name)
+        entity = self.entities.get_local_entity(self.entities.player, name)
         if not entity:
             print(f"{name} Cannot be found or does not exist")
+        if not self.entities.player.equiped:
+            print(f"Nothing equiped. Equip a weapon before attacking")
         else:
-            held_item = self.player.equiped
-            weapon = self.get_global_entity(held_item)
+            held_item = self.entities.player.equiped
+            weapon = self.entities.get_global_entity(held_item)
             damage = random.randint(weapon.damage[0], weapon.damage[1])
-            entity.hit_points -= (damage * self.player.combat_level) + 1
+            entity.hit_points -= (damage * self.entities.player.combat_level) + 1
             print(
-                f"The {weapon.name} did {damage} points of damage to {entity.name}"
+                f"The {weapon.name} did {damage} points of damage to {entity.name}. {entity.hit_points} remain"
             )
-            self.set_exp_level("combat_level")
+            self.entities.set_exp_level("combat_level")
             if entity.hit_points <= 0:
-                print(
-                    f"The {entity.name} has been destroyed by your {weapon}!"
-                )
+                print(f"The {entity.name} has been destroyed by your {weapon}!")
                 entity.lootable = True
                 # Add "dead" label?
-                self.set_exp_level("combat_level")
+                self.entities.set_exp_level("combat_level")
 
     @partialmethod
     def loot(self, name):
-        entity = self.get_local_entity(self.player, name)
+        entity = self.entities.get_local_entity(self.entities.player, name)
         if not entity:
             print(f"{name} Cannot be found or does not exist.")
         if entity.lootable is not True:
@@ -209,21 +123,21 @@ class Game:
         else:
             looted_item = entity.inventory[0]
             entity.inventory.remove(looted_item)
-            self.player.inventory.append(looted_item)
+            self.entities.player.inventory.append(looted_item)
             print(f"You take {looted_item}. It has been stored in your inventory.")
-            self.set_exp_level("loot_level")
+            self.entities.set_exp_level("loot_level")
 
     @partialmethod
     def help(self):
         print("> possible actions include: ", end="")
-        actions = list(self.words.keys())
+        actions = list(self.entities.words.keys())
         for i in range(len(actions) - 1):
             print(f"{actions[i]}, ", end="")
         print(actions[-1])
 
     @partialmethod
     def talk(self, npc):
-        npc = self.get_local_entity(self.player, npc)
+        npc = self.entities.get_local_entity(self.entities.player, npc)
         if not npc:
             print("Cannot be found or does not exist")
         elif not npc.dialogue:
@@ -233,67 +147,36 @@ class Game:
 
     @partialmethod
     def loadgame(self):
-        self.load_entities('data/save')
+        self.entities.load_entities("data/save")
 
     @partialmethod
     def savegame(self):
-        for entity in self.entities.values():
-            with open(f'data/save/{entity.name}.json','w') as file:
+        for entity in self.entities():
+            with open(f"data/save/{entity.name}.json", "w") as file:
                 file.write(entity.to_json())
 
-
+    @partialmethod
     def inventory(self):
         print(
-            f"Your inventory currently holds {[entity.name for entity in self.get_inventory(self.player)]}"
+            f"Your inventory currently holds {[entity.name for entity in self.entities.get_inventory(self.entities.player)]}"
         )
-
-    def get_surroundings(self, entity) -> list[Entity]:
-        return [self.entities[id] for id in self.entities[entity.location[-1]].inventory]
 
     def get_level(self, level_type):
         level = 0
         if level_type == "combat" or level_type == "combat_level":
-            level = self.player.combat_level
-            print(
-                f"Your combat level is {level}"
-            )
+            level = self.entities.player.combat_level
+            print(f"Your combat level is {level}")
         if level_type == "looting" or level_type == "looting_level":
-            level = self.player.loot_level
-            print(
-                f"Your combat level is {level}"
-            )
+            level = self.entities.player.loot_level
+            print(f"Your combat level is {level}")
         else:
             print(
                 f"'{level_type}' is not a valid entry. Please enter 'combat' or 'looting'"
             )
 
-    def set_exp_level(self, exp_type):
-        """ Leveling system called by functions that allow players to do actions associated with the 3 skills"""
-        exp = self.player.combat_experience
-        level = 0
-        if exp_type == "combat_level":
-            exp = self.player.combat_experience
-            level = self.player.combat_level
-        if exp_type == "loot_level":
-            exp = self.player.loot_experience
-            level = self.player.loot_level
-        # Can add the other leveling feature when base action is implemented
-
-        exp += 1
-        if exp == 1:
-            level = 1
-        if exp == 4:
-            level = 2
-        if exp >= 7:
-            level = 3
-        if exp == 1 or exp == 4 or exp == 7:
-            print(
-                f"Your {exp_type} is now level {level}!"
-            )
-
     def loop(self):
         while True:
-            self.parse_input(iter(input(": ").split()), self.parser, None)
+            self.parse_input(iter(input(": ").split()), self.entities.parser, None)
 
     def parse_input(self, input, current_word, action):
         """Looks through the player's input from left to right
@@ -316,19 +199,22 @@ class Game:
         elif next_word in current_word.inventory:
             self.parse_input(
                 input,
-                self.words[next_word],
+                self.entities.words[next_word],
                 getattr(self, next_word)
                 if action is None
                 else lambda: action(next_word),
             )
         # if the next word is a name of an entity in the player's inventory
         # pass that entity as an argument to our action
-        elif next_word in [entity.name for entity in self.get_inventory(self.player)]:
+        elif next_word in [
+            entity.name for entity in self.entities.get_inventory(self.entities.player)
+        ]:
             self.parse_input(input, current_word, lambda: action(next_word))
         # if the next word is a name of an entity in our player's location
         # pass that entity as an argument to our action
         elif next_word in [
-            entity.name for entity in self.get_surroundings(self.player)
+            entity.name
+            for entity in self.entities.get_surroundings(self.entities.player)
         ]:
             self.parse_input(input, current_word, lambda: action(next_word))
         # if the next word isn't a known word
@@ -336,27 +222,7 @@ class Game:
         else:
             self.parse_input(input, current_word, action)
 
-    def load_entities(self, directory):
-        for root, _, files in os.walk(directory):
-            root = os.path.join(root).replace("\\", "/")
-            base = os.path.basename(root)
-            for file in files:
-                if file.endswith(".json"):
-                    file_path = os.path.join(root, file)
-                    with open(file_path, "r") as data:
-                        match base:
-                            case "words":
-                                entity = Entity.from_json(data.read())
-                                self.words[entity.name] = entity
-                            case _:
-                                entity = Entity.from_json(data.read())
-                                self.entities[entity.id] = entity
-                        if entity.name == "you":
-                            self.player = entity
-                        if entity.name == "parser":
-                            self.parser = entity
-
 
 game = Game()
-game.load_entities("data/new")
+game.entities.load_entities("data/new")
 game.loop()
