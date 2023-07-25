@@ -24,8 +24,8 @@ class Entity:
     damage: List[int] = field(default_factory=list)
     combat_level: int = None
     combat_experience: int = None
-    loot_level: int = None
-    loot_experience: int = None
+    loot_level: int = 0
+    loot_experience: int = 0
     equiped: EntityId = None
     equipable: bool = False
     consumable: bool = False
