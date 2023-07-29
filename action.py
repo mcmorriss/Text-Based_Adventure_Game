@@ -152,6 +152,20 @@ class Action():
             self.entities.set_exp_level("loot_level")
 
     @partialmethod
+    def mine(self, name):
+        entity = self.entities.get_local_entity(self.entities.player, name)
+        pickaxe = self.entities.get_inventory_entity("pickaxe")
+        if not entity:
+            print(f"The {name} cannot be mined or does not exist.")
+        elif not pickaxe:
+            print(f"You need a pickaxe in your inventory to mine the {name}.")
+        else:
+            mined = self.entities.get_global_entity(entity.inventory[0])
+            entity.inventory.remove(mined.id)
+            self.entities.player.inventory.append(mined.id)
+            print(f"You mine a {mined.name} from the {name}. It has been stored in your inventory.")
+
+    @partialmethod
     def help(self):
         # print("> possible actions include: ", end="")
         # actions = list(self.entities.words.keys())
