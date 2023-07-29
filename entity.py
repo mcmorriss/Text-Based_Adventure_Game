@@ -34,6 +34,8 @@ class Entity:
     feature_two: EntityId = ""
     color: str = ""
     crouched: bool = False
+    ingredient: EntityId = None
+    produces: EntityId = None
 
     def to_json(self):
         return json.dumps(self, indent=4,default=lambda o: o.__dict__)

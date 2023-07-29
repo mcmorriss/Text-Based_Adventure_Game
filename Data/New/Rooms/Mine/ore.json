@@ -2,7 +2,6 @@
 	"id": "bcc98315-e41c-48af-9953-1cbe07ac1d50",
 	"name": "ore",
 	"location": "56994303-401f-4656-b61e-b75e05177995",
-	"inventory": ["5697cf15-4cbc-45f1-b329-3ac0a86c2c1b"],
 	"description_long": "A shiny, precious black ore on the wall. Looks like it was mined & refined that it could be used to smelt some tool or weaponry.",
 	"lootable": true
 }

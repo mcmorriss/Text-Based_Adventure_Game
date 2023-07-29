@@ -9,7 +9,6 @@ class Entities:
     player: Entity = field(default_factory=lambda: Entity())
     parser: Entity = field(default_factory=lambda: Entity())
     entities: dict[str, Entity] = field(default_factory=lambda: {})
-    words: dict[str, Entity] = field(default_factory=lambda: {})
 
     def __call__(self):
         return self.entities.values()
@@ -23,9 +22,10 @@ class Entities:
         try:
             return self.entities[identifier]
         except:
-            for entity in self.entities:
+            for entity in self.entities.values():
                 if entity.name == identifier:
                     return entity
+        return None
                 
     def get_global_entity(self, identifier):
         """Attempts to get the entity associated with the identifier
@@ -137,3 +137,11 @@ class Entities:
                             self.player = entity
                         if entity.name == "parser":
                             self.parser = entity
+        self.dereference_entities()
+
+    def dereference_entities(self):
+        for entity in self.entities.values():
+            if not entity.location:
+                continue
+            else:
+                self.entities[entity.location].inventory.append(entity.id)

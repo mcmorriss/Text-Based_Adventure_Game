@@ -1,6 +1,8 @@
 {
-	"id": "4e9dde78-2150-4fd0-abb0-723295b22949",
+	"id": "b9f9387e-6729-4684-938d-01e452016766",
 	"name": "conveyor",
-    "destination": "",
-    "description_long": "conveyor belt"
+    "location": "b68965e1-be60-4650-ba27-e5ecaf87848b",
+    "unlocked_by": "5837bebc-2a83-4e3b-b5db-85c1a3e38327",
+    "destination": "883714e6-de8d-4447-9261-4c7b10224563",
+    "description_long": "a conveyor belt appears to be missing a mechanism required for operation"
 }

@@ -1,0 +1,9 @@
+{
+	"id": "b591eddc-b854-424a-b855-834712084440",
+	"name": "schematic",
+    "location": "b68965e1-be60-4650-ba27-e5ecaf87848b",
+    "ingredient": "c867185f-9327-4b92-8063-cfb0e03896c5",
+    "produces": "5837bebc-2a83-4e3b-b5db-85c1a3e38327",
+    "description_long": "a schematic for some sort of mechanism",
+    "takeable": true
+}

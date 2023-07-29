@@ -1,7 +1,6 @@
 {
 	"id": "bf74e2ab-1791-4d1a-937d-0c6efaf51c3f",
 	"name": "car",
-	"inventory": [],
 	"description_long": "subway car",
     "destination": "",
     "color": "\\x1b[6;30;42m"

@@ -1,7 +1,6 @@
 {
 	"id": "56994303-401f-4656-b61e-b75e05177995",
 	"name": "mine",
-	"inventory": ["bfca4809-5420-4721-9d5e-8d0e92860789", "bcc98315-e41c-48af-9953-1cbe07ac1d50", "e30317ab-9802-4e6a-98fc-552855777a74"],
 	"description_long": "A mine dimly lit by a wall torch exposing various ore veins within the mine, \n you also see a minecart filled with some possibly helpful items, and you notice a large door at the head of the mine.",
 	"description_short": ""
 }

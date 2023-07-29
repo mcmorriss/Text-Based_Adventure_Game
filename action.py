@@ -13,11 +13,16 @@ class Action():
     def __post_init__(self):
         self.entities.load_entities('data/new')
         self.actions = [action for action, _ in inspect.getmembers(self) if not action.startswith('__')]
+        self.actions.remove('actions')
+        self.actions.remove('entities')
         
     @partialmethod
     def look(self, name=None):
         if name:
             for entity in self.entities.get_surroundings(self.entities.player):
+                if entity.name == name:
+                    print(entity.description_long)
+            for entity in self.entities.get_inventory(self.entities.player):
                 if entity.name == name:
                     print(entity.description_long)
         else:
@@ -47,6 +52,15 @@ class Action():
             print(
                 f"You travel through {name} and arrive at {self.entities.get_global_entity(door.destination).name}"
             )
+            self.look()
+
+    @partialmethod
+    def warp(self, name):
+        destination = self.entities.entity(name)
+        if not destination:
+            print(f"{name} does not appear to be a valid destination")
+        else:
+            self.entities.player.location = destination.id
             self.look()
 
     @partialmethod
@@ -139,11 +153,12 @@ class Action():
 
     @partialmethod
     def help(self):
-        print("> possible actions include: ", end="")
-        actions = list(self.entities.words.keys())
-        for i in range(len(actions) - 1):
-            print(f"{actions[i]}, ", end="")
-        print(actions[-1])
+        # print("> possible actions include: ", end="")
+        # actions = list(self.entities.words.keys())
+        # for i in range(len(actions) - 1):
+        #     print(f"{actions[i]}, ", end="")
+        # print(actions[-1])
+        print(f"> possible actions include: {self.actions}")
 
     @partialmethod
     def talk(self, npc):
@@ -184,6 +199,28 @@ class Action():
             print(f"You consume {name}")
             # Here we can either adding HP, or adding some effect, once we discuss
             self.entities.player.inventory.remove(entity.id)
+
+    @partialmethod
+    def craft(self, name):
+        outcome = "You don't appear to know any recipes"
+        for entity_id in self.entities.player.inventory:
+            recipe = self.entities.entity(entity_id)
+            product = self.entities.entity(recipe.produces)
+            ingredient = self.entities.entity(recipe.ingredient)
+            if not product or not ingredient:
+                continue
+            elif product.name != name:
+                outcome = f"You don't appear to know any recipes that produce {name}"
+            elif ingredient.id not in self.entities.player.inventory:
+                outcome = f"You need {ingredient.name} to produce {product.name}"
+            else:
+                self.entities.player.inventory.append(product.id)
+                self.entities.player.inventory.remove(ingredient.id)
+                print(f"{ingredient.name} removed from inventory")
+                print(f"{product.name} added to inventory")
+                outcome = f"you craft {product.name} by action of {recipe.name} consuming {ingredient.name} in the process"
+        print(outcome)
+
 
 
     @partialmethod
