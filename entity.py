@@ -38,8 +38,14 @@ class Entity:
     produces: EntityId = None
 
     def to_json(self):
-        return json.dumps(self, indent=4,default=lambda o: o.__dict__)
+        return json.dumps(self, indent=4,cls=EntityEncoder)
 
     @classmethod
     def from_json(cls, payload):
         return cls(**json.loads(payload))
+
+class EntityEncoder(json.JSONEncoder):
+    def default(self, obj):
+        obj_dict = obj.__dict__
+        obj_dict.pop('inventory')
+        return obj_dict

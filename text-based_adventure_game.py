@@ -50,4 +50,5 @@ class Game:
 
 
 game = Game()
+game.action.look()
 game.loop()
