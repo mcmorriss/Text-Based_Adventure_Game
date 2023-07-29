@@ -36,6 +36,7 @@ class Entity:
     crouched: bool = False
     ingredient: EntityId = None
     produces: EntityId = None
+    use: str = ""
 
     def to_json(self):
         return json.dumps(self, indent=4,cls=EntityEncoder)

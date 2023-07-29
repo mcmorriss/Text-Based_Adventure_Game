@@ -11,7 +11,6 @@ class Action():
     actions: List[str] = field(default_factory=list)
 
     def __post_init__(self):
-        self.entities.load_entities('data/new')
         self.actions = [action for action, _ in inspect.getmembers(self) if not action.startswith('__')]
         self.actions.remove('actions')
         self.actions.remove('entities')
@@ -161,7 +160,11 @@ class Action():
                 outcome = f"you craft {product.name} by action of {recipe.name} consuming {ingredient.name} in the process"
         print(outcome)
 
-
+    @partialmethod
+    def use(self, name, subject = None):
+        subject = self.entities.player if subject is None else subject
+        object = self.entities.get_proximal_entity(name, subject)
+        
 
     @partialmethod
     def loadgame(self):
@@ -185,7 +188,7 @@ class Action():
         
     @partialmethod
     def take(self, name):
-        entity = self.entities.get_local_entity(self.entities.player, name)
+        entity = self.entities.get_local_entity(name)
         if not entity:
             print("Cannot be found or does not exist")
         elif not entity.takeable:
@@ -199,16 +202,19 @@ class Action():
             entity.location = self.entities.player.id
 
     @partialmethod
-    def drop(self, name):
-        entity = self.entities.get_inventory_entity(name)
-        drop_location = self.entities.player.location
-        if not entity:
+    def drop(self, name=None, subject=None):
+        subject = self.entities.player if subject is None else subject
+        object = self.entities.get_inventory_entity(name)
+        drop_location = subject.location
+        if not name:
+            print("Need something to drop")
+        elif not object:
             print("Cannot be found or does not exist.")
         else:
-            print(f"You drop {entity.name}.")
-            self.entities.player.inventory.remove(entity.id)
-            entity.location = self.entities.player.id
-            self.entities.get_global_entity(drop_location).inventory.append(entity.id)
+            print(f"{object.name} dropped by {subject.name}.")
+            subject.inventory.remove(object.id)
+            object.location = subject.location
+            self.entities.get_global_entity(drop_location).inventory.append(object.id)
 
     @partialmethod
     def look(self, name=None):

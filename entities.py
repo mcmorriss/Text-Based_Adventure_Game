@@ -7,9 +7,11 @@ from entity import Entity
 @dataclass
 class Entities:
     player: Entity = field(default_factory=lambda: Entity())
-    parser: Entity = field(default_factory=lambda: Entity())
     entities: dict[str, Entity] = field(default_factory=lambda: {})
 
+    def __post_init__(self):
+        self.load_entities('data/new')
+        
     def __call__(self):
         return self.entities.values()
     
@@ -37,8 +39,9 @@ class Entities:
                 if entity.name == identifier:
                     return entity
                 
-    def get_local_entity(self, entity, name) -> Entity:
-        """Gets an entity by name from the entity's immediate surroundings"""
+    def get_local_entity(self, name, subject = None) -> Entity:
+        """Gets an entity by name from the subject's immediate surroundings"""
+        subject = self.player if subject is None else subject
         return next(
             (
                 entity
@@ -48,8 +51,9 @@ class Entities:
             None,
         )
     
-    def get_inventory_entity(self, name):
-        """Gets an entity by name from the player's inventory"""
+    def get_inventory_entity(self, name, subject = None):
+        """Gets an entity by name from the subject's inventory"""
+        subject = self.player if subject is None else subject
         return next(
             (
                 entity
@@ -58,6 +62,13 @@ class Entities:
             ),
             None,
         )
+    
+    def get_proximal_entity(self, name, subject = None):
+        """Gets an entity from the subject's inventory.
+        If the entity is not in the subject's inventory gets
+        the entity from the subject's location"""
+        subject = self.player if subject is None else subject
+        return self.get_local_entity() if self.get_inventory_entity() is None else self.get_inventory_entity()
     
     def get_inventory(self, entity) -> list[Entity]:
         """returns a list of the player's inventory"""
