@@ -162,7 +162,7 @@ class Action():
         print(outcome)
 
 
-    
+
     @partialmethod
     def loadgame(self):
         self.entities.load_entities("data/save")
@@ -179,6 +179,10 @@ class Action():
             f"Your inventory currently holds {[entity.name for entity in self.entities.get_inventory(self.entities.player)]}"
         )
     
+    @partialmethod
+    def pick(self, name):
+        self.take(name)
+        
     @partialmethod
     def take(self, name):
         entity = self.entities.get_local_entity(self.entities.player, name)
@@ -222,6 +226,10 @@ class Action():
             print(
                 *[entity.name for entity in self.entities.get_inventory(location)], sep=", "
             )
+
+    @partialmethod
+    def walk(self, name):
+        self.go(name)
 
     @partialmethod
     def go(self, name):
