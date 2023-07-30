@@ -1,6 +1,7 @@
 {
-	"id": "f0e3139e-79a6-4ac1-ad85-d4ecc5686359",
+	"id": "cc7a6165-201a-49e1-a25f-781c2a716f69",
 	"name": "capsule",
     "location": "69e37aa8-5832-4d2a-805e-8c1186ea81fa",
-	"description_long": "pachinko machine"
+	"description_long": "pachinko machine",
+	"lootable": true
 }

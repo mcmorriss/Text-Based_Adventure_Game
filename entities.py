@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
-import inspect
 import os
-from entity import Entity
+from entity import Entity, EntityId, EntityName
 
 
 @dataclass
@@ -18,7 +17,7 @@ class Entities:
     def names(self):
         return [entity.name for entity in self.entities.values()]
     
-    def entity(self, identifier):
+    def entity(self, identifier: EntityId | EntityName):
         """Attempts to get the entity associated with the identifier
         the identifier can be the id or a name"""
         try:
@@ -39,42 +38,42 @@ class Entities:
                 if entity.name == identifier:
                     return entity
                 
-    def get_local_entity(self, name, subject = None) -> Entity:
+    def get_local_entity(self, name, subject: Entity = None) -> Entity | None:
         """Gets an entity by name from the subject's immediate surroundings"""
         subject = self.player if subject is None else subject
         return next(
             (
                 entity
-                for entity in self.get_surroundings(self.player)
+                for entity in self.get_surroundings(subject)
                 if entity.name == name
             ),
             None,
         )
     
-    def get_inventory_entity(self, name, subject = None):
+    def get_inventory_entity(self, name, subject: Entity = None) -> Entity | None:
         """Gets an entity by name from the subject's inventory"""
         subject = self.player if subject is None else subject
         return next(
             (
                 entity
-                for entity in self.get_inventory(self.player)
+                for entity in self.get_inventory(subject)
                 if entity.name == name
             ),
             None,
         )
     
-    def get_proximal_entity(self, name, subject = None):
+    def get_proximal_entity(self, name, subject: Entity = None) -> Entity | None:
         """Gets an entity from the subject's inventory.
         If the entity is not in the subject's inventory gets
         the entity from the subject's location"""
         subject = self.player if subject is None else subject
-        return self.get_local_entity() if self.get_inventory_entity() is None else self.get_inventory_entity()
+        return self.get_local_entity(name, subject) if self.get_inventory_entity(name, subject) is None else self.get_inventory_entity(name, subject)
     
-    def get_inventory(self, entity) -> list[Entity]:
+    def get_inventory(self, entity: Entity) -> list[Entity]:
         """returns a list of the player's inventory"""
         return [self.entities[id] for id in self.entities[entity.id].inventory]
     
-    def get_surroundings(self, entity) -> list[Entity]:
+    def get_surroundings(self, entity: Entity) -> list[Entity]:
         return [self.entities[id] for id in self.entities[entity.location].inventory]
     
     def get_level(self, level_type):

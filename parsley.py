@@ -1,5 +1,7 @@
 from action import Action
 from dataclasses import dataclass, field
+from functools import partialmethod
+import inspect
 
 @dataclass
 class Parsley():
@@ -17,22 +19,22 @@ class Parsley():
         # try to call the method we've built up
         if not next_word:
             try:
-                action()
+                return action.__get__(self.action, Action)()
             except Exception as e:
                 print(e)
                 print("I'm sorry; I'm not sure what you mean.")
-        # if the next word is an action
-        # pass that word as an argument to our current action
+        # if the next word is the name of an action
+        # pass that action as an argument to our current action
         elif next_word in self.action.actions:
-            self.parse_input(
+            return self.parse_input(
                 input,
-                getattr(self.action, next_word)
+                partialmethod(getattr(Action, next_word))
                 if action is None
-                else lambda: action(next_word),
+                else action(next_word),
             )
-        # if the next word is a name of an entity in the player's inventory
+        # if the next word is the name of an entity
         # pass that entity as an argument to our action
         elif next_word in self.action.entities.names():
-            self.parse_input(input, lambda: action(next_word))
+            return self.parse_input(input, partialmethod(action, next_word))
         else:
-            self.parse_input(input, action)
+            return self.parse_input(input, action)

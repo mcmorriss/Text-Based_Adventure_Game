@@ -6,6 +6,7 @@ from typing import List, NewType
 import uuid
 
 EntityId = NewType("EntityId", str)
+EntityName = NewType("EntityName", str)
 
 @dataclass
 class Entity:
@@ -37,6 +38,7 @@ class Entity:
     ingredient: EntityId = None
     produces: EntityId = None
     use: str = ""
+    usable: bool = False
 
     def to_json(self):
         return json.dumps(self, indent=4,cls=EntityEncoder)

@@ -43,7 +43,7 @@ class Action():
 
     @partialmethod
     def attack(self, name):
-        entity = self.entities.get_local_entity(self.entities.player, name)
+        entity = self.entities.get_local_entity(name, self.entities.player)
         if not entity:
             print(f"{name} Cannot be found or does not exist")
             return
@@ -67,9 +67,12 @@ class Action():
                 # Add "dead" label?
                 self.entities.set_exp_level("combat_level")
 
+    def open(self, name):
+        self.loot(name)
+
     @partialmethod
     def loot(self, name):
-        entity = self.entities.get_local_entity(self.entities.player, name)
+        entity = self.entities.get_local_entity(name, self.entities.player)
         if not entity:
             print(f"The {name} Cannot be found or does not exist.")
         elif not hasattr(entity, 'lootable'):
@@ -87,7 +90,7 @@ class Action():
 
     @partialmethod
     def mine(self, name):
-        entity = self.entities.get_local_entity(self.entities.player, name)
+        entity = self.entities.get_local_entity(name, self.entities.player)
         pickaxe = self.entities.get_inventory_entity("pickaxe")
         if not entity:
             print(f"The {name} cannot be mined or does not exist.")
@@ -101,7 +104,7 @@ class Action():
 
     @partialmethod
     def talk(self, npc):
-        npc = self.entities.get_local_entity(self.entities.player, npc)
+        npc = self.entities.get_local_entity(npc, self.entities.player)
         if not npc:
             print("Cannot be found or does not exist")
         elif not npc.dialogue:
@@ -162,8 +165,15 @@ class Action():
 
     @partialmethod
     def use(self, name, subject = None):
-        subject = self.entities.player if subject is None else subject
+        subject = self.entities.player if subject is None else self.entities.entity(subject)
         object = self.entities.get_proximal_entity(name, subject)
+        if not object:
+            print("Cannot be found or does not exist")
+        elif not object.usable:
+            print("Cannot be used")
+        else:
+            object.usable = False
+            return f"{object.use} {object.name}"
         
 
     @partialmethod
@@ -203,8 +213,8 @@ class Action():
 
     @partialmethod
     def drop(self, name=None, subject=None):
-        subject = self.entities.player if subject is None else subject
-        object = self.entities.get_inventory_entity(name)
+        subject = self.entities.player if subject is None else self.entities.entity(subject)
+        object = self.entities.get_inventory_entity(name, subject)
         drop_location = subject.location
         if not name:
             print("Need something to drop")
@@ -239,7 +249,7 @@ class Action():
 
     @partialmethod
     def go(self, name):
-        door = self.entities.get_local_entity(self.entities.player, name)
+        door = self.entities.get_local_entity(name, self.entities.player)
         if not door:
             print("Cannot be found or does not exist")
         elif not door.destination:
