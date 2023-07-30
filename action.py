@@ -5,17 +5,21 @@ import random
 from entities import Entities
 from typing import List
 
+
 @dataclass
-class Action():
+class Action:
     entities: Entities = field(default_factory=lambda: Entities())
     actions: List[str] = field(default_factory=list)
 
     def __post_init__(self):
-        self.actions = [action for action, _ in inspect.getmembers(self) if not action.startswith('__')]
-        self.actions.remove('actions')
-        self.actions.remove('entities')
+        self.actions = [
+            action
+            for action, _ in inspect.getmembers(self)
+            if not action.startswith("__")
+        ]
+        self.actions.remove("actions")
+        self.actions.remove("entities")
 
-    @partialmethod
     def warp(self, name):
         destination = self.entities.entity(name)
         if not destination:
@@ -24,7 +28,6 @@ class Action():
             self.entities.player.location = destination.id
             self.look()
 
-    @partialmethod
     def equip(self, name):
         """equips an entity from the player's inventory to be used in an attack"""
         entity = self.entities.get_inventory_entity(name)
@@ -41,7 +44,6 @@ class Action():
         self.entities.player.equiped = entity.id
         print(f"You equip {entity.name}")
 
-    @partialmethod
     def attack(self, name):
         entity = self.entities.get_local_entity(name, self.entities.player)
         if not entity:
@@ -70,12 +72,11 @@ class Action():
     def open(self, name):
         self.loot(name)
 
-    @partialmethod
     def loot(self, name):
         entity = self.entities.get_local_entity(name, self.entities.player)
         if not entity:
             print(f"The {name} Cannot be found or does not exist.")
-        elif not hasattr(entity, 'lootable'):
+        elif not hasattr(entity, "lootable"):
             print(f"{name} cannot be looted or has no items")
         elif entity.lootable is not True:
             print(f"{name} cannot be looted right now.")
@@ -85,10 +86,11 @@ class Action():
             looted_item = self.entities.get_global_entity(entity.inventory[0])
             entity.inventory.remove(looted_item.id)
             self.entities.player.inventory.append(looted_item.id)
-            print(f"You loot a {looted_item.name} from the {name}. It has been stored in your inventory.")
+            print(
+                f"You loot a {looted_item.name} from the {name}. It has been stored in your inventory."
+            )
             self.entities.set_exp_level("loot_level")
 
-    @partialmethod
     def mine(self, name):
         entity = self.entities.get_local_entity(name, self.entities.player)
         pickaxe = self.entities.get_inventory_entity("pickaxe")
@@ -100,9 +102,10 @@ class Action():
             mined = self.entities.get_global_entity(entity.inventory[0])
             entity.inventory.remove(mined.id)
             self.entities.player.inventory.append(mined.id)
-            print(f"You mine a {mined.name} from the {name}. It has been stored in your inventory.")
+            print(
+                f"You mine a {mined.name} from the {name}. It has been stored in your inventory."
+            )
 
-    @partialmethod
     def talk(self, npc):
         npc = self.entities.get_local_entity(npc, self.entities.player)
         if not npc:
@@ -112,7 +115,6 @@ class Action():
         else:
             print(npc.dialogue)
 
-    @partialmethod
     def crouch(self):
         if self.entities.player.crouched is True:
             print("You are already crouching")
@@ -120,7 +122,6 @@ class Action():
             self.entities.player.crouched = True
             print("You are now crouching")
 
-    @partialmethod
     def standup(self):
         if self.entities.player.crouched is False:
             print("You are already standing")
@@ -128,7 +129,6 @@ class Action():
             self.entities.player.crouched = False
             print("You are now standing")
 
-    @partialmethod
     def consume(self, name):
         entity = self.entities.get_inventory_entity(name)
         if not entity:
@@ -142,7 +142,6 @@ class Action():
             # Here we can either adding HP, or adding some effect, once we discuss
             self.entities.player.inventory.remove(entity.id)
 
-    @partialmethod
     def craft(self, name):
         outcome = "You don't appear to know any recipes"
         for entity_id in self.entities.player.inventory:
@@ -163,9 +162,10 @@ class Action():
                 outcome = f"you craft {product.name} by action of {recipe.name} consuming {ingredient.name} in the process"
         print(outcome)
 
-    @partialmethod
-    def use(self, name, subject = None):
-        subject = self.entities.player if subject is None else self.entities.entity(subject)
+    def use(self, name, subject=None):
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
         object = self.entities.get_proximal_entity(name, subject)
         if not object:
             print("Cannot be found or does not exist")
@@ -174,29 +174,26 @@ class Action():
         else:
             object.usable = False
             return f"{object.use} {object.name}"
-        
 
-    @partialmethod
+    def exit(self):
+        exit()
+
     def loadgame(self):
         self.entities.load_entities("data/save")
 
-    @partialmethod
     def savegame(self):
         for entity in self.entities():
             with open(f"data/save/{entity.name}.json", "w") as file:
                 file.write(entity.to_json())
 
-    @partialmethod
     def inventory(self):
         print(
             f"Your inventory currently holds {[entity.name for entity in self.entities.get_inventory(self.entities.player)]}"
         )
-    
-    @partialmethod
+
     def pick(self, name):
         self.take(name)
-        
-    @partialmethod
+
     def take(self, name):
         entity = self.entities.get_local_entity(name)
         if not entity:
@@ -211,9 +208,10 @@ class Action():
             ).inventory.remove(entity.id)
             entity.location = self.entities.player.id
 
-    @partialmethod
     def drop(self, name=None, subject=None):
-        subject = self.entities.player if subject is None else self.entities.entity(subject)
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
         object = self.entities.get_inventory_entity(name, subject)
         drop_location = subject.location
         if not name:
@@ -226,7 +224,6 @@ class Action():
             object.location = subject.location
             self.entities.get_global_entity(drop_location).inventory.append(object.id)
 
-    @partialmethod
     def look(self, name=None):
         if name:
             for entity in self.entities.get_surroundings(self.entities.player):
@@ -238,16 +235,22 @@ class Action():
         else:
             location = self.entities.entity(self.entities.player.location)
             print(f"> {location.description_long}")
-            print("> This room contains: ", end="")
+            self.contains(location.id)
+
+    def contains(self, object):
+        object = self.entities.entity(object)
+        if not object:
+            print("Cannot be found or does not exist.")
+        else:
+            print(f"{object.name} contains: ", end="")
             print(
-                *[entity.name for entity in self.entities.get_inventory(location)], sep=", "
+                *[entity.name for entity in self.entities.get_inventory(object)],
+                sep=", ",
             )
 
-    @partialmethod
     def walk(self, name):
         self.go(name)
 
-    @partialmethod
     def go(self, name):
         door = self.entities.get_local_entity(name, self.entities.player)
         if not door:
@@ -261,13 +264,20 @@ class Action():
                 "You are missing something in your inventory required to traverse through this"
             )
         else:
-            self.entities.player.location = door.destination
+            destination = self.entities.entity(door.destination)
+            self.entities.player.location = destination.id
             door.inventory.append(self.entities.player.id)
             print(
-                f"You travel through {name} and arrive at {self.entities.get_global_entity(door.destination).name}"
+                # f"You traverse {name} and arrive at {self.entities.get_global_entity(door.destination).name}"
+                f"You traverse {door.name} and arrive at {destination.name}"
             )
-            self.look()
+            print(
+                f"> {destination.description_long}"
+            ) if not destination.discovered else print(
+                f"> {destination.description_short}"
+            )
+            destination.discovered = True
+            self.contains(destination.id)
 
-    @partialmethod
     def help(self):
         print(f"> possible actions include: {self.actions}")

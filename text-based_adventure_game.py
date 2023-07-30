@@ -3,6 +3,7 @@ from action import Action
 from parsley import Parsley
 from entities import Entities
 
+
 @dataclass
 class Game:
     action: Action = field(default_factory=lambda: Action())
@@ -11,13 +12,10 @@ class Game:
 
     def loop(self):
         while True:
-            response = self.parsley.parse_input(
-                iter(input(": ").split()), None
-            )
+            response = self.parsley.parse_input(iter(input(": ").split()), None)
             while response:
-                response = self.parsley.parse_input(
-                    iter(response.split()), None
-                )
+                response = self.parsley.parse_input(iter(response.split()), None)
+
 
 entities = Entities()
 parsley = Parsley()

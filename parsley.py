@@ -3,8 +3,9 @@ from dataclasses import dataclass, field
 from functools import partialmethod
 import inspect
 
+
 @dataclass
-class Parsley():
+class Parsley:
     action: Action = field(default_factory=lambda: Action())
 
     def parse_input(self, input, action):

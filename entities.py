@@ -9,15 +9,15 @@ class Entities:
     entities: dict[str, Entity] = field(default_factory=lambda: {})
 
     def __post_init__(self):
-        self.load_entities('data/new')
-        
+        self.load_entities("data/new")
+
     def __call__(self):
         return self.entities.values()
-    
+
     def names(self):
         return [entity.name for entity in self.entities.values()]
-    
-    def entity(self, identifier: EntityId | EntityName):
+
+    def entity(self, identifier: EntityId | EntityName | Entity):
         """Attempts to get the entity associated with the identifier
         the identifier can be the id or a name"""
         try:
@@ -27,7 +27,7 @@ class Entities:
                 if entity.name == identifier:
                     return entity
         return None
-                
+
     def get_global_entity(self, identifier):
         """Attempts to get the entity associated with the identifier
         the identifier can be the id or a name"""
@@ -37,7 +37,7 @@ class Entities:
             for entity in self.entities:
                 if entity.name == identifier:
                     return entity
-                
+
     def get_local_entity(self, name, subject: Entity = None) -> Entity | None:
         """Gets an entity by name from the subject's immediate surroundings"""
         subject = self.player if subject is None else subject
@@ -49,52 +49,48 @@ class Entities:
             ),
             None,
         )
-    
+
     def get_inventory_entity(self, name, subject: Entity = None) -> Entity | None:
         """Gets an entity by name from the subject's inventory"""
         subject = self.player if subject is None else subject
         return next(
-            (
-                entity
-                for entity in self.get_inventory(subject)
-                if entity.name == name
-            ),
+            (entity for entity in self.get_inventory(subject) if entity.name == name),
             None,
         )
-    
+
     def get_proximal_entity(self, name, subject: Entity = None) -> Entity | None:
         """Gets an entity from the subject's inventory.
         If the entity is not in the subject's inventory gets
         the entity from the subject's location"""
         subject = self.player if subject is None else subject
-        return self.get_local_entity(name, subject) if self.get_inventory_entity(name, subject) is None else self.get_inventory_entity(name, subject)
-    
+        return (
+            self.get_local_entity(name, subject)
+            if self.get_inventory_entity(name, subject) is None
+            else self.get_inventory_entity(name, subject)
+        )
+
     def get_inventory(self, entity: Entity) -> list[Entity]:
         """returns a list of the player's inventory"""
         return [self.entities[id] for id in self.entities[entity.id].inventory]
-    
+
     def get_surroundings(self, entity: Entity) -> list[Entity]:
         return [self.entities[id] for id in self.entities[entity.location].inventory]
-    
+
     def get_level(self, level_type):
         level = 0
         if level_type == "combat" or level_type == "combat_level":
             level = self.player.combat_level
-            print(
-                f"Your combat level is {level}"
-            )
+            print(f"Your combat level is {level}")
         if level_type == "looting" or level_type == "looting_level":
             level = self.player.loot_level
-            print(
-                f"Your looting level is {level}"
-            )
+            print(f"Your looting level is {level}")
         else:
             print(
                 f"'{level_type}' is not a valid entry. Please enter 'combat' or 'looting'"
             )
 
     def set_exp_level(self, exp_type):
-        """ Leveling system called by functions that allow players to do actions associated with the 3 skills"""
+        """Leveling system called by functions that allow players to do actions associated with the 3 skills"""
         exp = 0
         level = 0
         # Combat

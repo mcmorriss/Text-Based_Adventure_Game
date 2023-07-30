@@ -1,0 +1,416 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: powershell.exe
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: C:\Users\nelso\Projects\osucs\cs467\Text-Based_Adventure_Game
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 218
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 15
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 438
+    content: "\e[?25l\e[2J\e[m\e[HWindows PowerShell\r\nCopyright (C) Microsoft Corporation. All rights reserved.\e[4;1HInstall the latest PowerShell for new features and improvements! https://aka.ms/PSWindows\e[6;1H\e]0;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\a\e[?25h"
+  - delay: 170
+    content: 'PS C:\Users\nelso\Projects\osucs\cs467\Text-Based_Adventure_Game> '
+  - delay: 1953
+    content: "\e[?25l\e[93mp\e[38;5;238my .\\text-based_adventure_game.py\e[6;68H\e[?25h"
+  - delay: 14
+    content: "\e[m"
+  - delay: 79
+    content: "\e[?25l\e[93m\bpy \e[38;5;238m.\\text-based_adventure_game.py\e[6;69H\e[?25h"
+  - delay: 15
+    content: "\e[m"
+  - delay: 988
+    content: "\e[?25l\e[93m\e[6;67Hpy \e[m.\\text-based_adventure_game.py\e[?25h"
+  - delay: 357
+    content: "\r\n"
+  - delay: 78
+    content: "> You find yourself in the center of a town square. There appears to be a public execution about to commence. The public execution appears to be your own.\r\n> This room contains: you, sword, manhole, sympathizer\r\n: "
+  - delay: 666
+    content: w
+  - delay: 124
+    content: a
+  - delay: 122
+    content: r
+  - delay: 77
+    content: p
+  - delay: 62
+    content: ' '
+  - delay: 122
+    content: t
+  - delay: 109
+    content: e
+  - delay: 92
+    content: r
+  - delay: 78
+    content: m
+  - delay: 46
+    content: i
+  - delay: 169
+    content: 'n'
+  - delay: 109
+    content: a
+  - delay: 140
+    content: l
+  - delay: 291
+    content: "\r\n> A network of pneumatic tubes for passenger travel. Although there does not appear to have been any passengers lately. Kind of lonely here, really.\r\n> This room contains: carriage, pachinko\r\n: "
+  - delay: 1946
+    content: l
+  - delay: 433
+    content: o
+  - delay: 185
+    content: o
+  - delay: 385
+    content: k
+  - delay: 123
+    content: ' '
+  - delay: 371
+    content: c
+  - delay: 186
+    content: a
+  - delay: 109
+    content: r
+  - delay: 184
+    content: r
+  - delay: 171
+    content: i
+  - delay: 95
+    content: a
+  - delay: 76
+    content: g
+  - delay: 108
+    content: e
+  - delay: 1014
+    content: "\r\ncompressed air and vaccuum propels carriages through the pneumatic tube system. requires a ticket\r\n: "
+  - delay: 1992
+    content: i
+  - delay: 232
+    content: 'n'
+  - delay: 126
+    content: v
+  - delay: 92
+    content: e
+  - delay: 61
+    content: 'n'
+  - delay: 140
+    content: t
+  - delay: 124
+    content: o
+  - delay: 107
+    content: r
+  - delay: 109
+    content: 'y'
+  - delay: 361
+    content: "\r\nYour inventory currently holds []\r"
+  - delay: 10
+    content: "\n:\e[1C"
+  - delay: 1535
+    content: l
+  - delay: 214
+    content: o
+  - delay: 171
+    content: o
+  - delay: 108
+    content: k
+  - delay: 107
+    content: ' '
+  - delay: 202
+    content: p
+  - delay: 124
+    content: a
+  - delay: 107
+    content: c
+  - delay: 107
+    content: h
+  - delay: 139
+    content: i
+  - delay: 140
+    content: 'n'
+  - delay: 169
+    content: k
+  - delay: 140
+    content: o
+  - delay: 976
+    content: "\r\nA pachinko machine. Try using it.\r"
+  - delay: 9
+    content: "\n:\e[1C"
+  - delay: 2105
+    content: u
+  - delay: 139
+    content: s
+  - delay: 77
+    content: e
+  - delay: 107
+    content: ' '
+  - delay: 265
+    content: p
+  - delay: 140
+    content: a
+  - delay: 123
+    content: c
+  - delay: 123
+    content: h
+  - delay: 124
+    content: i
+  - delay: 185
+    content: 'n'
+  - delay: 199
+    content: k
+  - delay: 124
+    content: o
+  - delay: 595
+    content: "\r\ncapsule dropped by pachinko.\r"
+  - delay: 21
+    content: "\n:\e[1C"
+  - delay: 1682
+    content: l
+  - delay: 216
+    content: o
+  - delay: 168
+    content: o
+  - delay: 78
+    content: k
+  - delay: 452
+    content: "\r\n> A network of pneumatic tubes for passenger travel. Although there does not appear to have been any passengers lately. Kind of lonely here, really.\r\n> This room contains: carriage, pachinko, capsule\r"
+  - delay: 8
+    content: "\n:\e[1C"
+  - delay: 1777
+    content: l
+  - delay: 248
+    content: o
+  - delay: 172
+    content: o
+  - delay: 76
+    content: k
+  - delay: 139
+    content: ' '
+  - delay: 186
+    content: c
+  - delay: 138
+    content: a
+  - delay: 124
+    content: p
+  - delay: 109
+    content: s
+  - delay: 137
+    content: u
+  - delay: 170
+    content: l
+  - delay: 77
+    content: e
+  - delay: 670
+    content: "\r\nA capsule dropped by the pachinko machine. Try opening it.\r"
+  - delay: 9
+    content: "\n:\e[1C"
+  - delay: 1376
+    content: o
+  - delay: 78
+    content: p
+  - delay: 109
+    content: e
+  - delay: 123
+    content: 'n'
+  - delay: 108
+    content: ' '
+  - delay: 189
+    content: c
+  - delay: 173
+    content: a
+  - delay: 137
+    content: p
+  - delay: 143
+    content: s
+  - delay: 124
+    content: u
+  - delay: 153
+    content: l
+  - delay: 79
+    content: e
+  - delay: 282
+    content: "\r\nYou loot a ticket from the capsule. It has been stored in your inventory.\r\nYour loot_level is now level 1!\r"
+  - delay: 11
+    content: "\n:\e[1C"
+  - delay: 1991
+    content: i
+  - delay: 183
+    content: 'n'
+  - delay: 95
+    content: v
+  - delay: 123
+    content: e
+  - delay: 109
+    content: 'n'
+  - delay: 124
+    content: t
+  - delay: 125
+    content: o
+  - delay: 108
+    content: r
+  - delay: 153
+    content: 'y'
+  - delay: 877
+    content: "\r\nYour inventory currently holds ['ticket']\r"
+  - delay: 19
+    content: "\n:\e[1C"
+  - delay: 1721
+    content: g
+  - delay: 325
+    content: o
+  - delay: 60
+    content: ' '
+  - delay: 157
+    content: c
+  - delay: 217
+    content: a
+  - delay: 91
+    content: r
+  - delay: 168
+    content: r
+  - delay: 140
+    content: i
+  - delay: 79
+    content: a
+  - delay: 46
+    content: g
+  - delay: 123
+    content: e
+  - delay: 570
+    content: "\r\nYou travel through carriage and arrive at terminal\r\n> A network of pneumatic tubes for passenger travel. Although there does not appear to have been any passengers lately. Kind of lonely here, really.\r\n> This room contains: carriage, pachinko, capsule\r"
+  - delay: 11
+    content: "\n:\e[1C"
+  - delay: 1268
+    content: e
+  - delay: 217
+    content: x
+  - delay: 201
+    content: i
+  - delay: 107
+    content: t
+  - delay: 345
+    content: "\r"
+  - delay: 9
+    content: |+
+
+  - delay: 15
+    content: 'PS C:\Users\nelso\Projects\osucs\cs467\Text-Based_Adventure_Game> '
+  - delay: 1947
+    content: "\e[?25l\e[93me\e[38;5;238mxit\e[15;68H\e[?25h"
+  - delay: 15
+    content: "\e[m"
+  - delay: 263
+    content: "\e[?25l\e[93m\bex\e[38;5;238mit\e[15;69H\e[?25h"
+  - delay: 16
+    content: "\e[m"
+  - delay: 280
+    content: "\e[?25l\e[93m\e[15;67Hexi\e[38;5;238mt\b\e[?25h"
+  - delay: 16
+    content: "\e[m"
+  - delay: 30
+    content: "\e[?25l\e[92m\e[15;67Hexit\e[?25h"
+  - delay: 15
+    content: "\e[m"
+  - delay: 262
+    content: "\r\n"

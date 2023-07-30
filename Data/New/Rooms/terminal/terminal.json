@@ -1,5 +1,6 @@
 {
 	"id": "7a82a348-653d-4bd8-956e-f5d7bfd92275",
 	"name": "terminal",
-	"description_long": "The end of the line of the pneumatic tube system"
+	"description_long": "A network of pneumatic tubes for passenger travel. Although there does not appear to have been any passengers lately. Kind of lonely here, really.",
+	"description_short": "The end of the line of the pneumatic tube transport system"
 }
