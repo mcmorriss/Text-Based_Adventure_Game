@@ -31,7 +31,7 @@ class Parsley:
                 input,
                 partialmethod(getattr(Action, next_word))
                 if action is None
-                else action(next_word),
+                else partialmethod(action, next_word),
             )
         # if the next word is the name of an entity
         # pass that entity as an argument to our action

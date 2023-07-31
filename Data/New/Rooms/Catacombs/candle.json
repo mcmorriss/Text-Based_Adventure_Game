@@ -1,6 +1,6 @@
 {
 	"id": "ac9c92b9-5cb8-4b63-899f-0ef356395a9e",
-	"name": "remains",
-	"description_long": "Who's keeping the candles lit down here?",
-	"description_short": "a lit candle"
+	"name": "candle",
+	"location": "1520074d-14d4-4891-8da1-ee2d84524b0d",
+	"description_long": "A lit candle. Who's keeping the candles lit down here?"
 }
