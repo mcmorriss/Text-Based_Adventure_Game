@@ -138,6 +138,10 @@ class Entities:
                                 self.words[entity.name] = entity
                             case _:
                                 entity = Entity.from_json(data.read())
+                                if entity.id in self.entities.keys():
+                                    print(
+                                        f"WARNING: entity id collision. {entity.name} shares an id with {self.entities[entity.id].name}"
+                                    )
                                 self.entities[entity.id] = entity
                         if entity.name == "you":
                             self.player = entity

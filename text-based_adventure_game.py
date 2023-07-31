@@ -12,7 +12,7 @@ class Game:
 
     def loop(self):
         while True:
-            response = self.parsley.parse_input(iter(input(": ").split()), None)
+            response = self.parsley.parse_input(iter(input("< ").split()), None)
             while response:
                 response = self.parsley.parse_input(iter(response.split()), None)
 
