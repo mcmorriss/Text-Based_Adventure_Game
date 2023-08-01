@@ -15,7 +15,7 @@ class Action:
         self.actions = [
             action
             for action, _ in inspect.getmembers(self)
-            if not action.startswith("__")
+            if not action.startswith("_")
         ]
         self.actions.remove("actions")
         self.actions.remove("entities")
@@ -259,7 +259,15 @@ class Action:
     def walk(self, name):
         self.go(name)
 
-    def go(self, name):
+    def _move(self, object, subject):
+        self.entities.entity(subject.location).inventory.remove(subject.id)
+        subject.location = object.id
+        object.inventory.append(subject.id)
+
+    def go(self, name, subject=None):
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
         door = self.entities.get_local_entity(name, self.entities.player)
         if not door:
             print("Cannot be found or does not exist")
@@ -273,8 +281,7 @@ class Action:
             )
         else:
             destination = self.entities.entity(door.destination)
-            self.entities.player.location = destination.id
-            destination.inventory.append(self.entities.player.id)
+            self._move(destination, subject)
             print(
                 # f"You traverse {name} and arrive at {self.entities.get_global_entity(door.destination).name}"
                 f"You traverse {door.name} and arrive at {destination.name}"
@@ -286,6 +293,29 @@ class Action:
             )
             destination.discovered = True
             self.contains(destination.id)
+
+    def _cardinal(self, direction, subject=None):
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
+        location = self.entities.entity(subject.location)
+        direction = getattr(location, direction)
+        if direction:
+            self.go(direction)
+        else:
+            print("> impassable")
+
+    def north(self):
+        self._cardinal("north")
+
+    def south(self):
+        self._cardinal("south")
+
+    def east(self):
+        self._cardinal("east")
+
+    def west(self):
+        self._cardinal("west")
 
     def help(self):
         print(f"> possible actions include: {self.actions}")

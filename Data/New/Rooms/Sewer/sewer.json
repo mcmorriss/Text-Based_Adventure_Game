@@ -2,5 +2,6 @@
 	"id": "d2ab02c1-b04b-4742-8b1a-38195e14dd47",
 	"name": "sewer",
 	"description_long": "Tired of top-side living? This subterranean paradise featuring raw industrial charm will leave you believing that prime real estate isn't just a `pipe` dream. \n Ha! Enjoy resort-style amenities such as pump stations, sedimentation tanks, and flow regulators.",
-	"description_short": "The sewers under the town."
+	"description_short": "The sewers under the town.",
+	"east": "aa5f5b17-88e7-49f7-8020-c155792406a6"
 }

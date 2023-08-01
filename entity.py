@@ -41,6 +41,10 @@ class Entity:
     use: str = ""
     usable: bool = False
     take: str = ""
+    north: EntityId = None
+    south: EntityId = None
+    east: EntityId = None
+    west: EntityId = None
 
     def __callable__(self):
         pass

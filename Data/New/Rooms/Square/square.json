@@ -2,5 +2,6 @@
 	"id": "c040205c-96af-40b5-9f34-85c3ec45cc10",
 	"name": "square",
 	"description_long": "You find yourself in the center of a town square. There appears to be a public execution about to commence. The public execution appears to be your own.",
-	"description_short": "They probably have the wrong person. Or maybe you were set up. Either way you need to get out of here."
+	"description_short": "They probably have the wrong person. Or maybe you were set up. Either way you need to get out of here.",
+	"north": "24936fb7-aa0c-4718-aaef-010d322b067e"
 }
