@@ -2,5 +2,6 @@
 	"id": "001d8a30-3142-4caf-9954-ea1d3a5aca75",
 	"name": "slime",
 	"location": "4aee9729-6361-4fbc-a711-ddb03cbc2655",
-	"description_long": "A slime creeps and crawls up the cave walls"
+	"description_long": "A slime creeps and crawls up the cave walls",
+	"lootable": true
 }

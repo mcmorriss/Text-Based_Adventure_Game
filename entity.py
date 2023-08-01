@@ -40,6 +40,10 @@ class Entity:
     produces: EntityId = None
     use: str = ""
     usable: bool = False
+    take: str = ""
+
+    def __callable__(self):
+        pass
 
     def to_json(self):
         return json.dumps(self, indent=4, cls=EntityEncoder)

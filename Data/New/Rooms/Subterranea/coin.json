@@ -1,0 +1,8 @@
+{
+    "id": "a8862fbe-f277-45db-9a14-b0d99534b026",
+    "name": "coin",
+    "location": "4aee9729-6361-4fbc-a711-ddb03cbc2655",
+    "description_long": "a coin engraved with the image of an unknown stateswoman",
+    "takeable": true,
+    "take": "loot player slime"
+}
