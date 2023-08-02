@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 import os
 from entity import Entity, EntityId, EntityName
+import inspect
 
 
 @dataclass
@@ -38,25 +39,51 @@ class Entities:
                 if entity.name == identifier:
                     return entity
 
-    def get_local_entity(self, name, subject: Entity = None) -> Entity | None:
-        """Gets an entity by name from the subject's immediate surroundings"""
+    def get_local_entity(
+        self, identifier: EntityName | EntityId, subject: Entity = None
+    ) -> Entity | None:
+        """Gets an entity by name or id from the subject's immediate surroundings"""
         subject = self.player if subject is None else subject
-        return next(
+        by_name = next(
             (
                 entity
                 for entity in self.get_surroundings(subject)
-                if entity.name == name
+                if entity.name == identifier
             ),
             None,
         )
-
-    def get_inventory_entity(self, name, subject: Entity = None) -> Entity | None:
-        """Gets an entity by name from the subject's inventory"""
-        subject = self.player if subject is None else subject
-        return next(
-            (entity for entity in self.get_inventory(subject) if entity.name == name),
+        by_id = next(
+            (
+                entity
+                for entity in self.get_surroundings(subject)
+                if entity.id == identifier
+            ),
             None,
         )
+        return by_id if by_name is None else by_name
+
+    def get_inventory_entity(
+        self, identifier: EntityId | EntityName, subject: Entity = None
+    ) -> Entity | None:
+        """Gets an entity by name from the subject's inventory"""
+        subject = self.player if subject is None else subject
+        by_name = next(
+            (
+                entity
+                for entity in self.get_inventory(subject)
+                if entity.name == identifier
+            ),
+            None,
+        )
+        by_id = next(
+            (
+                entity
+                for entity in self.get_inventory(subject)
+                if entity.id == identifier
+            ),
+            None,
+        )
+        return by_id if by_name is None else by_name
 
     def get_proximal_entity(self, name, subject: Entity = None) -> Entity | None:
         """Gets an entity from the subject's inventory.
@@ -89,64 +116,60 @@ class Entities:
                 f"'{level_type}' is not a valid entry. Please enter 'combat' or 'looting'"
             )
 
-    def set_exp_level(self, exp_type):
+    def set_exp_level(self, exp_type, subject=None):
         """Leveling system called by functions that allow players to do actions associated with the 3 skills"""
+        subject = self.player if subject is None else subject
         exp = 0
         level = 0
         # Combat
         if exp_type == "combat_level":
-            self.player.combat_experience += 1
-            exp = self.player.combat_experience
+            subject.combat_experience += 1
+            exp = subject.combat_experience
             if exp >= 1:
-                self.player.combat_level = 1
+                subject.combat_level = 1
             if exp >= 4:
-                self.player.combat_level = 2
+                subject.combat_level = 2
             if exp >= 7:
-                self.player.combat_level = 3
-            level = self.player.combat_level
+                subject.combat_level = 3
+            level = subject.combat_level
 
         # Looting
         if exp_type == "loot_level":
-            self.player.loot_experience += 1
-            exp = self.player.loot_experience
+            subject.loot_experience += 1
+            exp = subject.loot_experience
             if exp >= 1:
-                self.player.loot_level = 1
+                subject.loot_level = 1
             if exp >= 4:
-                self.player.loot_level = 2
+                subject.loot_level = 2
             if exp >= 7:
-                self.player.loot_level = 3
-            level = self.player.loot_level
+                subject.loot_level = 3
+            level = subject.loot_level
 
         # Can add the other leveling feature when base action is implemented
         # Check for level up.
         if exp == 1 or exp == 4 or exp == 7:
-            print(f"Your {exp_type} is now level {level}!")
+            print(f"{subject.name} {exp_type} is now level {level}!")
             if exp_type == "combat_level":
-                print(f"You now do {level}x damage!")
+                print(f"{subject.name} now does {level}x damage!")
 
     def load_entities(self, directory):
         for root, _, files in os.walk(directory):
             root = os.path.join(root).replace("\\", "/")
-            base = os.path.basename(root)
             for file in files:
                 if file.endswith(".json"):
                     file_path = os.path.join(root, file)
                     with open(file_path, "r") as data:
-                        match base:
-                            case "words":
-                                entity = Entity.from_json(data.read())
-                                self.words[entity.name] = entity
-                            case _:
-                                entity = Entity.from_json(data.read())
-                                if entity.id in self.entities.keys():
-                                    print(
-                                        f"WARNING: entity id collision. {entity.name} shares an id with {self.entities[entity.id].name}"
-                                    )
-                                self.entities[entity.id] = entity
-                        if entity.name == "you":
+                        entity = Entity.from_json(data.read())
+                        if (
+                            inspect.currentframe().f_back.f_code.co_name != "loadgame"
+                            and entity.id in self.entities.keys()
+                        ):
+                            print(
+                                f"WARNING: entity id collision. {entity.name} shares an id with {self.entities[entity.id].name}"
+                            )
+                        self.entities[entity.id] = entity
+                        if entity.name == "player":
                             self.player = entity
-                        if entity.name == "parser":
-                            self.parser = entity
         self.dereference_entities()
 
     def dereference_entities(self):

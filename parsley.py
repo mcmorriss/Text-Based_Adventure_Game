@@ -27,15 +27,12 @@ class Parsley:
         # if the next word is the name of an action
         # pass that action as an argument to our current action
         elif next_word in self.action.actions:
-            return self.parse_input(
-                input,
-                partialmethod(getattr(Action, next_word))
-                if action is None
-                else partialmethod(action, next_word),
-            )
+            return self.parse_input(input, partialmethod(getattr(Action, next_word)))
         # if the next word is the name of an entity
         # pass that entity as an argument to our action
         elif next_word in self.action.entities.names():
-            return self.parse_input(input, partialmethod(action, next_word))
+            return self.parse_input(
+                input, action if action is None else partialmethod(action, next_word)
+            )
         else:
             return self.parse_input(input, action)

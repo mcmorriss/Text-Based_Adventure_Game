@@ -40,6 +40,14 @@ class Entity:
     produces: EntityId = None
     use: str = ""
     usable: bool = False
+    take: str = ""
+    north: EntityId = None
+    south: EntityId = None
+    east: EntityId = None
+    west: EntityId = None
+
+    def __callable__(self):
+        pass
 
     def to_json(self):
         return json.dumps(self, indent=4, cls=EntityEncoder)

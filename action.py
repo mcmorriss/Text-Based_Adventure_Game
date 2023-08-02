@@ -15,7 +15,7 @@ class Action:
         self.actions = [
             action
             for action, _ in inspect.getmembers(self)
-            if not action.startswith("__")
+            if not action.startswith("_")
         ]
         self.actions.remove("actions")
         self.actions.remove("entities")
@@ -26,6 +26,7 @@ class Action:
             print(f"{name} does not appear to be a valid destination")
         else:
             self.entities.player.location = destination.id
+            destination.inventory.append(self.entities.player.id)
             self.look()
 
     def equip(self, name):
@@ -72,10 +73,13 @@ class Action:
     def open(self, name):
         self.loot(name)
 
-    def loot(self, name):
-        entity = self.entities.get_local_entity(name, self.entities.player)
+    def loot(self, name=None, subject=None):
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
+        entity = self.entities.get_local_entity(name, subject)
         if not entity:
-            print(f"The {name} Cannot be found or does not exist.")
+            print(f"{name} cannot be found or does not exist.")
         elif not hasattr(entity, "lootable"):
             print(f"{name} cannot be looted or has no items")
         elif entity.lootable is not True:
@@ -83,13 +87,15 @@ class Action:
         elif len(entity.inventory) == 0:
             print(f"{name} contains no loot")
         else:
-            looted_item = self.entities.get_global_entity(entity.inventory[0])
-            entity.inventory.remove(looted_item.id)
-            self.entities.player.inventory.append(looted_item.id)
-            print(
-                f"You loot a {looted_item.name} from the {name}. It has been stored in your inventory."
+            looted_item = self.entities.get_inventory_entity(
+                entity.inventory[-1], entity
             )
-            self.entities.set_exp_level("loot_level")
+            entity.inventory.remove(looted_item.id)
+            subject.inventory.append(looted_item.id)
+            print(
+                f"{subject.name} looted a {looted_item.name} from the {name}. It has been stored in {subject.name}'s inventory."
+            )
+            self.entities.set_exp_level("loot_level", subject)
 
     def mine(self, name):
         entity = self.entities.get_local_entity(name, self.entities.player)
@@ -173,7 +179,7 @@ class Action:
             print("Cannot be used")
         else:
             object.usable = False
-            return f"{object.use} {object.name}"
+            return f"{object.use}"
 
     def exit(self):
         exit()
@@ -194,19 +200,21 @@ class Action:
     def pick(self, name):
         self.take(name)
 
-    def take(self, name):
-        entity = self.entities.get_local_entity(name)
-        if not entity:
+    def take(self, name, subject=None):
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
+        object = self.entities.get_local_entity(name, subject)
+        if not object:
             print("Cannot be found or does not exist")
-        elif not entity.takeable:
+        elif not object.takeable:
             print("Cannot be taken")
         else:
-            print(f"You take {entity.name}")
-            self.entities.player.inventory.append(entity.id)
-            self.entities.get_global_entity(
-                self.entities.player.location
-            ).inventory.remove(entity.id)
-            entity.location = self.entities.player.id
+            print(f"You take {object.name}")
+            subject.inventory.append(object.id)
+            self.entities.get_global_entity(object.location).inventory.remove(object.id)
+            object.location = subject.id
+            return f"{object.take}"
 
     def drop(self, name=None, subject=None):
         subject = (
@@ -251,7 +259,15 @@ class Action:
     def walk(self, name):
         self.go(name)
 
-    def go(self, name):
+    def _move(self, object, subject):
+        self.entities.entity(subject.location).inventory.remove(subject.id)
+        subject.location = object.id
+        object.inventory.append(subject.id)
+
+    def go(self, name, subject=None):
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
         door = self.entities.get_local_entity(name, self.entities.player)
         if not door:
             print("Cannot be found or does not exist")
@@ -265,8 +281,7 @@ class Action:
             )
         else:
             destination = self.entities.entity(door.destination)
-            self.entities.player.location = destination.id
-            door.inventory.append(self.entities.player.id)
+            self._move(destination, subject)
             print(
                 # f"You traverse {name} and arrive at {self.entities.get_global_entity(door.destination).name}"
                 f"You traverse {door.name} and arrive at {destination.name}"
@@ -278,6 +293,29 @@ class Action:
             )
             destination.discovered = True
             self.contains(destination.id)
+
+    def _cardinal(self, direction, subject=None):
+        subject = (
+            self.entities.player if subject is None else self.entities.entity(subject)
+        )
+        location = self.entities.entity(subject.location)
+        direction = getattr(location, direction)
+        if direction:
+            self.go(direction)
+        else:
+            print("> impassable")
+
+    def north(self):
+        self._cardinal("north")
+
+    def south(self):
+        self._cardinal("south")
+
+    def east(self):
+        self._cardinal("east")
+
+    def west(self):
+        self._cardinal("west")
 
     def help(self):
         print(f"> possible actions include: {self.actions}")

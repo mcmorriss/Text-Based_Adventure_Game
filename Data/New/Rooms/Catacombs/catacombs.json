@@ -2,5 +2,6 @@
 	"id": "1520074d-14d4-4891-8da1-ee2d84524b0d",
 	"name": "catacombs",
 	"description_long": "Deeper even than the ruins of the old town. The walls sweat and ooze. The floor here appears to be made of bone.",
-	"description_short": "The Catacombs of Old Town"
+	"description_short": "The Catacombs of Old Town",
+	"east": "4e9dde78-2150-4fd0-abb0-723295b22949"
 }
