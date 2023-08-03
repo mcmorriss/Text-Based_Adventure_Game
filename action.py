@@ -137,6 +137,7 @@ class Action:
 
     def drink(self, name):
         entity = self.entities.get_inventory_entity(name)
+        test = [x.id for x in self.entities() if x.name == 'status_effect']
         if not entity:
             print(f"{name} is not in your inventory")
             return
@@ -146,6 +147,7 @@ class Action:
         else:
             print(f"You drink {name}")
             self.entities.player.inventory.remove(entity.id)
+            self.entities.player.inventory.append(test[0])
 
     def craft(self, name):
         outcome = "You don't appear to know any recipes"
@@ -192,8 +194,9 @@ class Action:
                 file.write(entity.to_json())
 
     def inventory(self):
+        status = "status_effect"
         print(
-            f"Your inventory currently holds {[entity.name for entity in self.entities.get_inventory(self.entities.player)]}"
+            f"Your inventory currently holds {[entity.name for entity in self.entities.get_inventory(self.entities.player) if entity.name != status]}"
         )
 
     def pick(self, name):
@@ -273,7 +276,7 @@ class Action:
         elif not door.destination:
             print("This does not appear to be traversable")
         elif (
-            door.unlocked_by and door.unlocked_by not in self.entities.player.inventory
+                door.unlocked_by and door.unlocked_by not in self.entities.player.inventory
         ):
             print(
                 "You are missing something in your inventory required to traverse through this"
