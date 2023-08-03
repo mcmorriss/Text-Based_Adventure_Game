@@ -135,17 +135,16 @@ class Action:
             self.entities.player.crouched = False
             print("You are now standing")
 
-    def consume(self, name):
+    def drink(self, name):
         entity = self.entities.get_inventory_entity(name)
         if not entity:
             print(f"{name} is not in your inventory")
             return
-        elif not entity.consumable:
-            print(f"Er... I don't think {name} is something you can eat.")
+        elif not entity.drinkable:
+            print(f"Er... I don't think {name} is something you can drink.")
             return
         else:
-            print(f"You consume {name}")
-            # Here we can either adding HP, or adding some effect, once we discuss
+            print(f"You drink {name}")
             self.entities.player.inventory.remove(entity.id)
 
     def craft(self, name):

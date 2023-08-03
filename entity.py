@@ -30,7 +30,7 @@ class Entity:
     loot_experience: int = 0
     equiped: EntityId = None
     equipable: bool = False
-    consumable: bool = False
+    drinkable: bool = False
     discovered: bool = False
     feature_one: EntityId = ""
     feature_two: EntityId = ""
