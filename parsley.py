@@ -1,12 +1,13 @@
 from action import Action
+from entities import Entities
 from dataclasses import dataclass, field
 from functools import partialmethod
-import inspect
 
 
 @dataclass
 class Parsley:
     action: Action = field(default_factory=lambda: Action())
+    entities: Entities = field(default_factory=lambda: Entities())
 
     def parse_input(self, input, action):
         """Looks through the player's input from left to right
@@ -32,7 +33,10 @@ class Parsley:
         # pass that entity as an argument to our action
         elif next_word in self.action.entities.names():
             return self.parse_input(
-                input, action if action is None else partialmethod(action, next_word)
+                input,
+                partialmethod(getattr(Action, 'go'), next_word) 
+                if action is None else 
+                partialmethod(action, next_word)
             )
         else:
             return self.parse_input(input, action)

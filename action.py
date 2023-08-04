@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from functools import partialmethod
 import inspect
 import random
 from entities import Entities
