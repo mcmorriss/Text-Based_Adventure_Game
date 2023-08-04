@@ -2,8 +2,8 @@
 	"id": "6fa1e8c5-456c-40a1-9f1c-33d7f39a0174",
 	"name": "skeleton",
 	"location": "4e9dde78-2150-4fd0-abb0-723295b22949",
-	"description_long": "A hostile skeleton wielding a dagger, viciously glaring in your direction.",
-	"description_short": "an aggressive undead being.",
+	"description_long": "A hostile skeleton wielding a unique sword, viciously glaring in your direction.",
+	"description_short": "an aggressive undead being possessing valuable weapon.",
     "dialogue": "Fetch me their souls",
 	"lootable": false,
 	"hit_points": 45
