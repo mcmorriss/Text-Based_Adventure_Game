@@ -23,6 +23,7 @@ class Entity:
     dialogue: str = None
     takeable: bool = False
     lootable: bool = False
+    spawnable: bool = False
     damage: List[int] = field(default_factory=list)
     combat_level: int = None
     combat_experience: int = None
