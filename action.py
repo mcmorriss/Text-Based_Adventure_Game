@@ -79,6 +79,14 @@ class Action:
         entity = self.entities.get_local_entity(name, subject)
         if not entity:
             print(f"{name} cannot be found or does not exist.")
+        elif hasattr(entity, "spawnable") and entity.spawnable:
+            spawn_entity = self.entities.get_global_entity(entity.spawns)
+            spawn_location = self.entities.get_global_entity(self.entities.player.location)
+            spawn_entity.location = entity.location
+            entity.inventory.remove(spawn_entity.id)
+            spawn_location.inventory.append(spawn_entity.id)
+            print(spawn_entity.location)
+            print(f"A {spawn_entity.name} appears after you attempt to loot the {entity.name}! \n Be prepared to engage in combat!")
         elif not hasattr(entity, "lootable"):
             print(f"{name} cannot be looted or has no items")
         elif entity.lootable is not True:
