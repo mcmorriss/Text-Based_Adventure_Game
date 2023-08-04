@@ -2,5 +2,7 @@
 	"id": "4e9dde78-2150-4fd0-abb0-723295b22949",
 	"name": "sarcophagus",
 	"location": "1520074d-14d4-4891-8da1-ee2d84524b0d",
-    "destination": "7a82a348-653d-4bd8-956e-f5d7bfd92275"
+	"spawnable": true,
+	"spawns": "6fa1e8c5-456c-40a1-9f1c-33d7f39a0174",
+    	"destination": "7a82a348-653d-4bd8-956e-f5d7bfd92275"
 }
