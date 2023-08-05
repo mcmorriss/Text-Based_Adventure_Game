@@ -251,7 +251,7 @@ class Action:
                     print(entity.description_long)
         else:
             location = self.entities.entity(self.entities.player.location)
-            print(f"> {location.description_long}")
+            print(f"{location.description_long}")
             self.contains(location.id)
 
     def contains(self, object):
@@ -267,6 +267,16 @@ class Action:
 
     def walk(self, name):
         self.go(name)
+
+    def sneak(self, subject=None):
+        subject = self.entities.player if subject is None else self.entities.entity(subject)
+        stealth = self.entities.entity('stealth')
+        if stealth.id in subject.inventory:
+            subject.inventory.remove(stealth.id)
+            print(f'{subject.name} emerges from the shadows')
+        else:
+            subject.inventory.append(stealth.id)
+            print(f'{subject.name} slips into the shadows')
 
     def _move(self, object, subject):
         self.entities.entity(subject.location).inventory.remove(subject.id)
@@ -295,7 +305,6 @@ class Action:
             destination = self.entities.entity(door.destination)
             self._move(destination, subject)
             print(
-                # f"You traverse {name} and arrive at {self.entities.get_global_entity(door.destination).name}"
                 f"You traverse {door.name} and arrive at {destination.name}"
             )
             print(
