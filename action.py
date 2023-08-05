@@ -71,7 +71,7 @@ class Action:
 
     def open(self, name):
         self.loot(name)
-
+    
     def loot(self, name=None, subject=None):
         subject = (
             self.entities.player if subject is None else self.entities.entity(subject)
@@ -126,7 +126,7 @@ class Action:
         elif not npc.dialogue:
             print("Does not appear to be very talkative. Best left to its own devices.")
         else:
-            print(npc.dialogue)
+            print(f'{npc.name}: {npc.dialogue}')
 
     def crouch(self):
         if self.entities.player.crouched is True:
@@ -285,9 +285,12 @@ class Action:
         elif (
                 door.unlocked_by and door.unlocked_by not in self.entities.player.inventory
         ):
-            print(
-                "You are missing something in your inventory required to traverse through this"
-            )
+            if door.go_interrupt:
+                return door.go_interrupt
+            else:
+                print(
+                    "You are missing something in your inventory required to traverse through this"
+                )
         else:
             destination = self.entities.entity(door.destination)
             self._move(destination, subject)
@@ -296,9 +299,9 @@ class Action:
                 f"You traverse {door.name} and arrive at {destination.name}"
             )
             print(
-                f"> {destination.description_long}"
+                f"{destination.description_long}"
             ) if not destination.discovered else print(
-                f"> {destination.description_short}"
+                f"{destination.description_short}"
             )
             destination.discovered = True
             self.contains(destination.id)
@@ -312,7 +315,7 @@ class Action:
         if direction:
             self.go(direction)
         else:
-            print("> impassable")
+            print("impassable")
 
     def north(self):
         self._cardinal("north")
@@ -327,4 +330,4 @@ class Action:
         self._cardinal("west")
 
     def help(self):
-        print(f"> possible actions include: {self.actions}")
+        print(f"possible actions include: {self.actions}")

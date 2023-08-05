@@ -43,6 +43,7 @@ class Entity:
     use: str = ""
     usable: bool = False
     take: str = ""
+    go_interrupt: str =""
     north: EntityId = None
     south: EntityId = None
     east: EntityId = None
