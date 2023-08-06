@@ -2,7 +2,7 @@
 	"id": "3d21630a-0e41-49f1-98d1-3b079b1d72ac",
 	"name": "arclight",
 	"location": "6fa1e8c5-456c-40a1-9f1c-33d7f39a0174",
-	"description_long": "An enhanced piece of demonbane weaponry notorious for inflicting substanstial damage amongst those of a demonic-origin.",
+	"description_long": ["An enhanced piece of demonbane weaponry notorious for inflicting substanstial damage amongst those of a demonic-origin."],
 	"description_short": "An impressively forged sword that surpasses all in the slaying of demons.",
 	"damage": [12, 22],
 	"equipable": true

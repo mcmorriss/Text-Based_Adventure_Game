@@ -2,7 +2,7 @@
 	"id": "ccf331a1-c80c-4001-82a0-99ef27e398e5",
 	"name": "wrench",
 	"location": "d2ab02c1-b04b-4742-8b1a-38195e14dd47",
-	"description_long": "A union weapon for a more utilitarian age",
+	"description_long": ["A union weapon for a more utilitarian age"],
 	"damage": [5, 9],
     "takeable": true,
     "equipable": true

@@ -2,7 +2,7 @@
 	"id": "33432c44-f144-4047-b4de-9f6b8343b568",
 	"name": "ferry",
 	"location": "4aee9729-6361-4fbc-a711-ddb03cbc2655",
-	"description_long": "A ferry sits docked at the ready to take passengers further into the subterranean.",
+	"description_long": ["A ferry sits docked at the ready to take passengers further into the subterranean."],
 	"unlocked_by": "a8862fbe-f277-45db-9a14-b0d99534b026",
     "destination": "704d5117-d70d-41a7-a974-7c1931fc32b0"
 }

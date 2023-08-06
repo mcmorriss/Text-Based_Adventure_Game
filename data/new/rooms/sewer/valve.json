@@ -2,6 +2,6 @@
 	"id": "7313414e-30e3-4dad-a76d-aee5f9026f56",
 	"name": "valve",
 	"location": "9c6e74e0-e5f2-4494-a681-c2d005c92b59",
-	"description_long": "This valve must open the drain",
+	"description_long": ["This valve must open the drain"],
 	"takeable": true
 }

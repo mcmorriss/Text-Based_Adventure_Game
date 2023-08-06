@@ -2,7 +2,7 @@
 	"id": "69e37aa8-5832-4d2a-805e-8c1186ea81fa",
 	"name": "pachinko",
     "location": "7a82a348-653d-4bd8-956e-f5d7bfd92275",
-	"description_long": "A pachinko machine. Try using it.",
+	"description_long": ["A pachinko machine. Try using it."],
 	"use": "drop capsule pachinko",
 	"usable": true
 }

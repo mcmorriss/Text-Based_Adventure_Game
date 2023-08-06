@@ -2,7 +2,7 @@
 	"id": "7dfc8a14-e352-46c5-b2aa-c6be7c83314e",
 	"name": "pathway",
 	"location": "1520074d-14d4-4891-8da1-ee2d84524b0d",
-	"description_long": "A candle-lit pathway leading down to a narrow corridor where a dim fluorescent lighting can be spotted, who designed this place?",
+	"description_long": ["A candle-lit pathway leading down to a narrow corridor where a dim fluorescent lighting can be spotted, who designed this place?"],
 	"description_short": "A possible exit to this strange realm?",
 	"destination": "7a82a348-653d-4bd8-956e-f5d7bfd92275"
 }

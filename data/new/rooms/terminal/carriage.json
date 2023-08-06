@@ -2,7 +2,7 @@
 	"id": "bf74e2ab-1791-4d1a-937d-0c6efaf51c3f",
 	"name": "carriage",
 	"location": "7a82a348-653d-4bd8-956e-f5d7bfd92275",
-	"description_long": "compressed air and vaccuum propels carriages through the pneumatic tube system. requires a ticket",
+	"description_long": ["compressed air and vaccuum propels carriages through the pneumatic tube system. requires a ticket"],
     "description_short": "pneumatic tube carriage for passenger travel",
 	"destination": "b68965e1-be60-4650-ba27-e5ecaf87848b",
 	"unlocked_by": "c1e2b216-03a4-4db2-a9a8-e26b53212274",

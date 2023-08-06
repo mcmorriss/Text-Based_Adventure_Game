@@ -2,6 +2,6 @@
 	"id": "cc7a6165-201a-49e1-a25f-781c2a716f69",
 	"name": "capsule",
     "location": "69e37aa8-5832-4d2a-805e-8c1186ea81fa",
-	"description_long": "A capsule dropped by the pachinko machine. Try opening it.",
+	"description_long": ["A capsule dropped by the pachinko machine. Try opening it."],
 	"lootable": true
 }

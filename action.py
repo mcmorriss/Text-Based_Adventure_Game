@@ -251,7 +251,7 @@ class Action:
                     print(entity.description_long)
         else:
             location = self.entities.entity(self.entities.player.location)
-            print(f"{location.description_long}")
+            print(location.description_long)
             self.contains(location.id)
 
     def contains(self, object):

@@ -1,7 +1,10 @@
 {
 	"id": "7a82a348-653d-4bd8-956e-f5d7bfd92275",
 	"name": "terminal",
-	"description_long": "A network of pneumatic tubes for passenger travel. Although there does not appear to have been any passengers lately. Kind of lonely here, really.",
+	"description_long": ["A network of pneumatic tubes for passenger travel. Although there does not appear to have been any passengers lately. Kind of lonely here, really.",
+						"",
+						"Sympathizer: Some things can be 'use'd to invoke some kind of reaction. Try using, well, 'use' on the pachinko machine.",
+						"It's really more of a gachapon machine though."],
 	"description_short": "The end of the line of the pneumatic tube transport system",
 	"south": "bf74e2ab-1791-4d1a-937d-0c6efaf51c3f"
 }

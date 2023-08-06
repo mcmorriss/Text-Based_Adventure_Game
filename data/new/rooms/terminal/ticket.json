@@ -2,5 +2,5 @@
 	"id": "c1e2b216-03a4-4db2-a9a8-e26b53212274",
 	"name": "ticket",
     "location": "cc7a6165-201a-49e1-a25f-781c2a716f69",
-	"description_long": "a ticket required to use the carriage"
+	"description_long": ["a ticket required to use the carriage"]
 }

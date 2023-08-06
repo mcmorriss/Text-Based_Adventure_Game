@@ -1,7 +1,12 @@
 {
 	"id": "b68965e1-be60-4650-ba27-e5ecaf87848b",
 	"name": "factory",
-	"description_long": "Penrose stairs and strange loops. Impossible geometry and perpetual motion. The factory runs without worker or overseer. A machine to make the machine to make the machine...",
+	"description_long": ["Penrose stairs and strange loops. Impossible geometry and perpetual motion. The factory runs without worker or overseer.",
+						"A machine to make the machine to make the machine...\n",
+						"Sympathizer: Alright this one get's a little cerebral but I trust in your engineering ability.",
+						"Basically some actions can be performed on entities that might not even be visible or exist.",
+						"Like if you want to bake a cake you're basically invoking 'bake' on the concept of a 'cake' right?",
+						"Try to apply that logic here with the 'craft' action.\n"],
 	"description_short": "a factory",
 	"feature_one": "b591eddc-b854-424a-b855-834712084440",
 	"feature_two": "c867185f-9327-4b92-8063-cfb0e03896c5",

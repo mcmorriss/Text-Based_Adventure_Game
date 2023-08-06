@@ -1,7 +1,12 @@
 {
 	"id": "56994303-401f-4656-b61e-b75e05177995",
 	"name": "quarry",
-	"description_long": "A mine dimly lit by a wall torch exposing various ore veins within the mine, \n you also see a minecart filled with some possibly helpful items, and you notice a large door at the head of the mine.",
+	"description_long": ["A mine dimly lit by a wall torch exposing various ore veins within the mine",
+						"you also see a minecart filled with some possibly helpful items, and you notice a large door at the head of the mine.",
+						"",
+						"Sympathizer: I see you caught onto the difference between 'taking' and 'looting'",
+						"'Taking' puts something in your inventory while 'looting' extracts something from something else's inventory into your's",
+						"Anyway try using what we learned about 'taking' and 'looting' in addition to trying out 'mine' in this room"],
 	"description_short": "",
 	"south": "2c26ed5b-35a3-4b89-96a4-0deb0be92346"
 }

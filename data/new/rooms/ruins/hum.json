@@ -2,5 +2,5 @@
 	"id": "19c0dd2e-146c-4b96-9bc0-8d568a1632ab",
 	"name": "hum",
 	"location": "704d5117-d70d-41a7-a974-7c1931fc32b0",
-	"description_long": "a dull hum of indeterminant origin resonates in the background."
+	"description_long": ["a dull hum of indeterminant origin resonates in the background."]
 }
