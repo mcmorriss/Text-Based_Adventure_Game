@@ -2,7 +2,7 @@
 	"id": "a4799909-2ad6-4acd-a362-d6c86ec16ed2",
 	"name": "flame-potion",
     "location": "45733b1e-26af-4dd0-924b-edd3785efaef",
-	"description_long": ["A potion of flame"],
+	"description_long": ["A potion that makes the drinker immune to fire and flame. Anyone see a balrog, by chance?"],
 	"drinkable": true,
 	"takeable": true
 }

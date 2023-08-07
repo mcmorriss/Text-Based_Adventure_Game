@@ -1,6 +1,13 @@
 {
 	"id": "45733b1e-26af-4dd0-924b-edd3785efaef",
 	"name": "library",
-	"description_long": ["the archives"],
+	"description_long": ["Ah, the library archives.",
+						 "A place where many a student of old has spent far too much time studying. Or rather, pretending",
+						 "to study while trying to talk to others under the watchful gaze of the librarian.",
+						 "",
+						 "Sympathizer: Ok, so the only way out appears to be that wall of flames..",
+						 "I wonder if there is anything in here we can 'drink' to be able to walk through that?",
+	             		 "And while you're looking for that... it can't hurt to try and find proof your innocent, right?"],
+	"description_short": "The library, a place where archives are held",
 	"west": "06cbf515-8c10-418e-8e9f-7f142496eade"
 }

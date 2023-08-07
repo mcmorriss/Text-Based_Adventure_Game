@@ -2,5 +2,6 @@
 	"id": "8eb67f40-c298-42ed-87fe-d9761789e0ff",
 	"name": "historical-document",
     "location": "45733b1e-26af-4dd0-924b-edd3785efaef",
-	"description_long": ["A historical document proving you didn't commit the crime"]
+	"description_long": ["A historical document proving you didn't commit the crime. You could be free!"],
+	"takeable": true
 }

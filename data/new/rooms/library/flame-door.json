@@ -2,7 +2,7 @@
     "id": "06cbf515-8c10-418e-8e9f-7f142496eade",
     "name": "flame-door",
     "location": "45733b1e-26af-4dd0-924b-edd3785efaef",
-    "description_long": ["A door of flame"],
+    "description_long": ["A wall of flame. If only there was someway to make yourself immune to it's fire.."],
     "unlocked_by": "b28bbbcd-01e5-44c3-9343-6f6917b5bfa1",
     "destination": "90838ee0-0d1f-4d04-9f23-0b65949252a5"
 }

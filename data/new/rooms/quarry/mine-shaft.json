@@ -3,6 +3,6 @@
     "name": "mine-shaft",
     "location": "56994303-401f-4656-b61e-b75e05177995",
     "description_long": ["A mine shaft. Appears traversable."],
-    "unlocked_by": "",
+    "unlocked_by": "5697cf15-4cbc-45f1-b329-3ac0a86c2c1b",
     "destination": "4aee9729-6361-4fbc-a711-ddb03cbc2655"
 }
