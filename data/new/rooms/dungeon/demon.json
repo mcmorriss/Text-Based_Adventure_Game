@@ -1,0 +1,12 @@
+{
+	"id": "e9f73a3f-570e-4a3b-9cf3-f7c7bb2a8a45",
+	"name": "demon",
+	"location": "90838ee0-0d1f-4d04-9f23-0b65949252a5",
+	"description_long": ["This menacing embodiment of infernal malevolence wields its pitchfork with relentless fury,",
+						"lurking amidst the shadows of the underworld. Rumored to have once been a lowly imp, it ascended",
+						"to a fearsome demon, reveling in its newfound power and tormenting souls with diabolical delight."],
+	"description_short": "The Demon",
+    "dialogue": "The Demon roars, and you can hear a sizzling sound as the very vapor in the air seems to evaporate",
+	"lootable": false,
+	"hit_points": 150
+}

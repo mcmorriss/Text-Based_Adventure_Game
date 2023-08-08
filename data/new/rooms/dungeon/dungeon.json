@@ -1,8 +1,8 @@
 {
 	"id": "90838ee0-0d1f-4d04-9f23-0b65949252a5",
 	"name": "dungeon",
-	"description_long": ["The dungeon"],
+	"description_long": ["As you exit the wall of flame, ready to finally escape, you find one more challenge",
+						"faces you: A large and horrible demon stands in front of you, blocking your escape!"],
 	"description_short": "A dungeon",
-	"feature_one": "",
-	"feature_two": ""
+	"west": "43c7be7b-7316-4a82-bda7-dd8cebb818d5"
 }

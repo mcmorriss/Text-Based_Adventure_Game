@@ -258,6 +258,8 @@ class Action:
         object = self.entities.entity(object)
         if not object:
             print("Cannot be found or does not exist.")
+        if object.name == "open_field" or object.name == "credits":
+            return
         else:
             print(f"{object.name} contains: ", end="")
             print(
@@ -304,9 +306,10 @@ class Action:
         else:
             destination = self.entities.entity(door.destination)
             self._move(destination, subject)
-            print(
-                f"You traverse {door.name} and arrive at {destination.name}"
-            )
+            if destination.name != "barricaded_door" and destination.name != "credits":
+                print(
+                    f"You traverse {door.name} and arrive at {destination.name}"
+                )
             print(
                 f"{destination.description_long}"
             ) if not destination.discovered else print(
