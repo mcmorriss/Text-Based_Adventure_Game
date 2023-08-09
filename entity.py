@@ -34,8 +34,6 @@ class Entity:
     equipable: bool = False
     drinkable: bool = False
     discovered: bool = False
-    feature_one: EntityId = ""
-    feature_two: EntityId = ""
     color: str = ""
     crouched: bool = False
     ingredient: EntityId = None

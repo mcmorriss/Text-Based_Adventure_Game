@@ -5,5 +5,6 @@
 						"",
 						"Sympathizer: I'm pretty sure you've got this one. Although that sarcophagus is kind of creeping me out"],
 	"description_short": "The Catacombs of Old Town",
-	"east": "4e9dde78-2150-4fd0-abb0-723295b22949"
+	"east": "4e9dde78-2150-4fd0-abb0-723295b22949",
+	"south": "1a4f27b3-2a8a-4017-880a-b7cefca8af7a"
 }

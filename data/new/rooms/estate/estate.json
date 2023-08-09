@@ -3,7 +3,10 @@
 	"name": "estate",
 	"description_long": ["Welcome to the dilapidated estate of some long forgotten eccentric industrialist,",
 						"where cobwebs serve as curtains and creaky floorboards are found in abundance.",
-						"A perfect place for those who enjoy their spirits, both spectral and distilled!"],
+						"A perfect place for those who enjoy their spirits, both spectral and distilled!",
+						"\n",
+						"Sympathizer: This one should be a bit easier; it looks like the bridge to the north just needs the lever!"],
 	"description_short": "Potentially haunted mansion",
-	"north": "52e55f7f-400a-48d9-8423-2ff632de3bfd"
+	"north": "52e55f7f-400a-48d9-8423-2ff632de3bfd",
+	"east": "3465ba7a-6b64-4868-a885-17760b7543a9"
 }

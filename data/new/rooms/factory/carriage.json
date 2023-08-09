@@ -1,0 +1,9 @@
+{
+	"id": "4adfc755-79f0-4408-8c4f-75455daffe55",
+	"name": "carriage",
+	"location": "b68965e1-be60-4650-ba27-e5ecaf87848b",
+	"description_long": ["The carriage that propels back to the terminal."],
+    "description_short": "pneumatic tube carriage for passenger travel",
+	"destination": "7a82a348-653d-4bd8-956e-f5d7bfd92275",
+	"unlocked_by": "",
+}

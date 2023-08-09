@@ -1,0 +1,8 @@
+{
+	"id": "ff2172b9-2af9-4de6-86aa-b71703d529ac",
+	"name": "ferry",
+	"location": "704d5117-d70d-41a7-a974-7c1931fc32b0",
+	"description_long": ["The ferry back to subterranea."],
+	"unlocked_by": "",
+    "destination": "4aee9729-6361-4fbc-a711-ddb03cbc2655"
+}

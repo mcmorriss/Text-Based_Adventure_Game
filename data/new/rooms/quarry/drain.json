@@ -1,0 +1,8 @@
+{
+	"id": "ad2eeb27-a719-451a-a2b0-63504dc34bc2",
+	"name": "drain",
+	"location": "56994303-401f-4656-b61e-b75e05177995",
+	"description_long": ["The drain back to the sewer. Kind of gross."],
+	"unlocked_by": "",
+	"destination": "d2ab02c1-b04b-4742-8b1a-38195e14dd47"
+}

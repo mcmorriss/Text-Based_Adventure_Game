@@ -8,7 +8,6 @@
 						"Like if you want to bake a cake you're basically invoking 'bake' on the concept of a 'cake' right?",
 						"Try to apply that logic here with the 'craft' action.\n"],
 	"description_short": "a factory",
-	"feature_one": "b591eddc-b854-424a-b855-834712084440",
-	"feature_two": "c867185f-9327-4b92-8063-cfb0e03896c5",
-	"west": "b9f9387e-6729-4684-938d-01e452016766"
+	"west": "b9f9387e-6729-4684-938d-01e452016766",
+	"north": "4adfc755-79f0-4408-8c4f-75455daffe55"
 }

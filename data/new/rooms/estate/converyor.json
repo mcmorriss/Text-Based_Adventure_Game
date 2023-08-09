@@ -1,0 +1,8 @@
+{
+	"id": "3465ba7a-6b64-4868-a885-17760b7543a9",
+	"name": "conveyor",
+    "location": "883714e6-de8d-4447-9261-4c7b10224563",
+    "unlocked_by": "",
+    "destination": "b68965e1-be60-4650-ba27-e5ecaf87848b",
+    "description_long": ["A Mobius strip conveyor belt that leads back to the factory."]
+}

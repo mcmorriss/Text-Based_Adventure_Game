@@ -3,5 +3,7 @@
 	"name": "sentry",
 	"location": "704d5117-d70d-41a7-a974-7c1931fc32b0",
 	"description_long": ["clockwork Automoton guarding something in the ruins"],
-	"dialogue": "HALT CITIZEN! MY SAFETY PROTOCOLS WILL NOT ALLOW YOU TO DESCEND DOWN THE BOTTOMLESS PIT!\nSympathizer: Ah jeez we're going to have to 'sneak' past this sentry somehow.\nCan you think of any actions you could input that might help in this cause?"
+	"dialogue": ["HALT CITIZEN! MY SAFETY PROTOCOLS WILL NOT ALLOW YOU TO DESCEND DOWN THE BOTTOMLESS PIT!",
+				"Sympathizer: Ah jeez we're going to have to 'sneak' past this sentry somehow.",
+				"Can you think of any actions you could input that might help in this cause?"]
 }

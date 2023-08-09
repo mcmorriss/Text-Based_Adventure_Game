@@ -1,0 +1,8 @@
+{
+    "id": "1a4f27b3-2a8a-4017-880a-b7cefca8af7a",
+    "name": "pit",
+    "location": "1520074d-14d4-4891-8da1-ee2d84524b0d",
+    "description_long": ["Looking up the pit, there is a rope that can be used to climb back up."],
+    "destination": "704d5117-d70d-41a7-a974-7c1931fc32b0",
+    "unlocked_by": ""
+}

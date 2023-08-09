@@ -310,11 +310,10 @@ class Action:
                 print(
                     f"You traverse {door.name} and arrive at {destination.name}"
                 )
-            print(
-                f"{destination.description_long}"
-            ) if not destination.discovered else print(
-                f"{destination.description_short}"
-            )
+            if destination.discovered:
+                print(f"{destination.description_short}")
+            else:
+                print(f"{destination.description_long}")
             destination.discovered = True
             self.contains(destination.id)
 

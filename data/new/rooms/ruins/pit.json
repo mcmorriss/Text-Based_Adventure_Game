@@ -2,7 +2,7 @@
     "id": "7c0cb430-5194-4a82-943d-5edb2ab4c9e8",
     "name": "pit",
     "location": "704d5117-d70d-41a7-a974-7c1931fc32b0",
-    "description_long": ["a bottomless pit. appears to be traversable."],
+    "description_long": ["A bottomless pit. appears to be traversable."],
     "destination": "1520074d-14d4-4891-8da1-ee2d84524b0d",
     "unlocked_by": "6c1af7d8-3710-49fc-93b6-c32439827740",
     "go_interrupt": "talk sentry"

@@ -6,5 +6,6 @@
 						"As you scan the area, you see a manhole to the north.",
 						"The public execution appears to be your own."],
 	"description_short": "You're back on the surface, surrounded by an angry mob. I wouldn't stay here, if I were you.",
-	"north": "24936fb7-aa0c-4718-aaef-010d322b067e"
+	"north": "24936fb7-aa0c-4718-aaef-010d322b067e",
+	"discovered": true
 }

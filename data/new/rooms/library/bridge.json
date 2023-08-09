@@ -1,0 +1,8 @@
+{
+	"id": "a9bd6e4d-b978-4549-8976-d1797083ce0b",
+	"name": "bridge",
+	"location": "45733b1e-26af-4dd0-924b-edd3785efaef",
+	"description_long": ["The draw bridge back to the creepy estate."],
+	"unlocked_by": "",
+	"destination": "883714e6-de8d-4447-9261-4c7b10224563"
+}

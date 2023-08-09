@@ -2,7 +2,7 @@
 	"id": "f8a2f1b3-ff61-450e-8dec-1554d8e4393d",
 	"name": "pickaxe",
 	"location": "bfca4809-5420-4721-9d5e-8d0e92860789",
-	"description_long": ["A shiny, precious black ore on the wall. Looks like it was mined & refined that it could be used to smelt some tool or weaponry."],
+	"description_long": ["A classic pickaxe, used by dwarves or miners to acquire ore."],
 	"takeable": true,
 	"equipable": true
 }

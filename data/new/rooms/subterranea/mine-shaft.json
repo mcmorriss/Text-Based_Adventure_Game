@@ -1,0 +1,8 @@
+{
+    "id": "695cd958-3cdd-4033-ba2b-c42bbfbe1253",
+    "name": "mine-shaft",
+    "location": "4aee9729-6361-4fbc-a711-ddb03cbc2655",
+    "description_long": ["The mine shaft back to the quarry."],
+    "unlocked_by": "",
+    "destination": "56994303-401f-4656-b61e-b75e05177995"
+}
