@@ -85,7 +85,6 @@ class Action:
             spawn_entity.location = entity.location
             entity.inventory.remove(spawn_entity.id)
             spawn_location.inventory.append(spawn_entity.id)
-            print(spawn_entity.location)
             print(f"A {spawn_entity.name} appears after you attempt to loot the {entity.name}! \n Be prepared to engage in combat!")
         elif not hasattr(entity, "lootable"):
             print(f"{name} cannot be looted or has no items")

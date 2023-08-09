@@ -175,6 +175,7 @@ class Entities:
     def dereference_entities(self):
         for entity in self.entities.values():
             entity.description_long = '\n'.join(entity.description_long)
+            entity.dialogue = '\n'.join(entity.dialogue)
             if not entity.location:
                 continue
             else:

@@ -1,4 +1,3 @@
-from ast import List
 from dataclasses import dataclass, field
 import json
 import sys
@@ -13,14 +12,14 @@ EntityName = NewType("EntityName", str)
 class Entity:
     id: EntityId = str(uuid.uuid4())
     name: str = ""
-    inventory: list[str] = field(default_factory=lambda: [])
+    inventory: List[str] = field(default_factory=lambda: [])
     location: EntityId = ""
     description_long: str = ""
     description_short: str = ""
     hit_points: int = sys.maxsize
     unlocked_by: EntityId = ""
     destination: EntityId = ""
-    dialogue: str = None
+    dialogue: str = ""
     takeable: bool = False
     lootable: bool = False
     spawnable: bool = False
