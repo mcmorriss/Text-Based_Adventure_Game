@@ -2,6 +2,7 @@
 	"id": "bfca4809-5420-4721-9d5e-8d0e92860789",
 	"name": "cart",
 	"location": "56994303-401f-4656-b61e-b75e05177995",
-	"description_long": ["A mine cart that has been used by miners to collect ores for decades, \n You see the top of a pickaxe sitting in the corner of the cart."],
+	"description_long": ["A mine cart that has been used by miners to collect ores for decades",
+						"You see the top of a pickaxe sitting in the corner of the cart."],
 	"lootable": true
 }

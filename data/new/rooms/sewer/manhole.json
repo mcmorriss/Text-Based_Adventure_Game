@@ -1,0 +1,9 @@
+{
+	"id": "ffa29307-415d-4bbd-b2eb-7dff5631a509",
+	"name": "manhole",
+	"location": "d2ab02c1-b04b-4742-8b1a-38195e14dd47",
+	"description_long": ["The way back to the surface.. but why would you want to do?"],
+	"unlocked_by": "",
+	"destination": "c040205c-96af-40b5-9f34-85c3ec45cc10",
+	"color": "\\x1b[6;30;42m"
+}

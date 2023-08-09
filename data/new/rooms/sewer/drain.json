@@ -2,7 +2,7 @@
 	"id": "aa5f5b17-88e7-49f7-8020-c155792406a6",
 	"name": "drain",
 	"location": "d2ab02c1-b04b-4742-8b1a-38195e14dd47",
-	"description_long": ["Sewer Drain"],
+	"description_long": ["A sewer drain; perhaps if you had some way to open it, you could further your escape!"],
 	"unlocked_by": "7313414e-30e3-4dad-a76d-aee5f9026f56",
 	"destination": "56994303-401f-4656-b61e-b75e05177995"
 }
