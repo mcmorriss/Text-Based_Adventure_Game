@@ -2,7 +2,8 @@
 	"id": "52e55f7f-400a-48d9-8423-2ff632de3bfd",
 	"name": "bridge",
 	"location": "883714e6-de8d-4447-9261-4c7b10224563",
-	"description_long": ["An extremely damaged bridge leading to an eerie island that wreaks of death, though it seems that \nit's possible to repair with something you mined from ore."],
-	"unlocked_by": "5697cf15-4cbc-45f1-b329-3ac0a86c2c1b",
+	"description_long": ["An extremely damaged draw bridge leading to an eerie island that wreaks of death, though it",
+						"seems that it can still be operated if you have a lever."],
+	"unlocked_by": "c502ef5e-d269-401e-9225-7e03f5439ad3\n",
 	"destination": "45733b1e-26af-4dd0-924b-edd3785efaef"
 }

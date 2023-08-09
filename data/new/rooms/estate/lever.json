@@ -1,0 +1,7 @@
+{
+	"id": "c502ef5e-d269-401e-9225-7e03f5439ad3",
+	"name": "lever",
+	"location": "883714e6-de8d-4447-9261-4c7b10224563",
+	"description_long": ["Maybe taking this lever will allow you to use the bridge"],
+	"takeable": true
+}
