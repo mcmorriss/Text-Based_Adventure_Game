@@ -5,7 +5,7 @@
 						"you also see a minecart filled with some possibly helpful items, and you notice a large door to your south.",
 						"",
 						"Sympathizer: I see you caught onto the difference between 'taking' and 'looting'",
-						"'Taking' puts something in your inventory while 'looting' extracts something from something else's inventory into your's",
+						"'Taking' puts something in your inventory while 'looting' extracts something from something else's inventory into yours",
 						"Anyway try using what we learned about 'taking' and 'looting' in addition to trying out 'mine' in this room"],
 	"description_short": "The quarry, where mining takes place.",
 	"south": "2c26ed5b-35a3-4b89-96a4-0deb0be92346",
