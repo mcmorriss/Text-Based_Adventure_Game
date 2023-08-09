@@ -5,7 +5,7 @@
 	"description_long": ["This absolute specimen of reptilian dental superiority has taken up residence in the sewer.",
 						"Was once perhaps a crocodilian pet that been flushed upon growing to a size too onerous to manage."],
 	"description_short": "an aligator",
-    "dialogue": "The aligator hisses and bellows",
+    "dialogue": ["The aligator hisses and bellows"],
 	"lootable": false,
 	"hit_points": 25
 }

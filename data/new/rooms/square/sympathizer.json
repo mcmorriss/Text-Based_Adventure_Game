@@ -7,5 +7,5 @@
 						"exactly) appears more sympathetic to reason"],
 	"description_short": "Could this sympathetic villager aid in your current predicament?",
 	"takeable": true,
-	"dialogue": "Take me with you and I'll help you get out of here!"
+	"dialogue": ["Take me with you and I'll help you get out of here!"]
 }
