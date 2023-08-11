@@ -116,9 +116,9 @@ class Action:
     def talk(self, npc):
         npc = self.entities.get_local_entity(npc, self.entities.player)
         if not npc:
-            print("Cannot be found or does not exist")
+            return (None, "Cannot be found or does not exist")
         elif not npc.dialogue:
-            print("Does not appear to be very talkative. Best left to its own devices.")
+            return (None, "Does not appear to be very talkative. Best left to its own devices.")
         else:
             return (None, f'{npc.name}: {npc.dialogue}')
 

@@ -11,20 +11,21 @@ import sys
 class Game:
     parsley: Parsley = field(default_factory=lambda: Parsley())
     logger = None
-    location = deque(['Square', 'Square'], 2)
+    location = deque(['square', 'square'], 2)
     description = "Enter a command... "
     previous_action = "look"
 
     def loop(self):
+        print(self.location)
         start = False
         build_output(self, self.location)
         while True:
             if not start:
-                print("Previous action: ", self.previous_action)
+                print("Previous action:", self.previous_action)
                 print(self.parsley.action.look()[1])
                 start = True
             else:
-                print("Previous action: ", self.previous_action)
+                print("Previous action:", self.previous_action)
             user_input = input("> ")
             reaction, response = self.parsley.parse_input(iter(user_input.split()), None)
             while reaction:
@@ -33,6 +34,8 @@ class Game:
             self.location.append(self.parsley.action.entities.entity(self.parsley.action.entities.player.location).name)
             self.previous_action = user_input
             if self.location[0] != self.location[1]:
+                print(self.location[0])
+                print(self.location[1])
                 build_output(self, self.location)
             print(response)
 
@@ -62,7 +65,7 @@ def build_ascii_art(location='square'):
     try:
         with open(f'art/{location[1]}.txt', 'r') as f:
             for line in f:
-                print(line.rstrip())
+                print(line.rstrip().center(len(build_divider())))
     except:
         pass
 
