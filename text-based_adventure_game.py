@@ -53,7 +53,7 @@ def build_output(user, location):
 
 def build_divider():
     terminal_width = shutil.get_terminal_size().columns
-    width = 125
+    width = 100
     divider = "+"
     for i in range(width):
         divider += "—"
@@ -65,7 +65,7 @@ def build_ascii_art(location='square'):
     try:
         with open(f'art/{location[1]}.txt', 'r') as f:
             for line in f:
-                print(line.rstrip().center(len(build_divider())))
+                print(line.rstrip())
     except:
         pass
 
