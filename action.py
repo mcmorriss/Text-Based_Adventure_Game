@@ -59,13 +59,13 @@ class Action:
             entity.lootable = True
             self.entities.set_exp_level("combat_level")
             return (None,
-                f"The {weapon.name} did {total_damage} points of damage to {entity.name}. {entity.hit_points} remain\nThe{entity.name} has been destroyed by your {weapon.name}!"
+                f"The {weapon.name} did {total_damage} points of damage to {entity.name}. {entity.hit_points} remain\nThe {entity.name} has been destroyed by your {weapon.name}!"
             )
         else:
             return (None, f"The {weapon.name} did {total_damage} points of damage to {entity.name}. {entity.hit_points} remain")
 
     def open(self, name):
-        self.loot(name)
+        return self.loot(name)
     
     def loot(self, name=None, subject=None):
         subject = (
@@ -165,7 +165,7 @@ class Action:
                 self.entities.player.inventory.remove(ingredient.id)
                 outcome = f"{ingredient.name} removed from inventory\n"
                 outcome += f"{product.name} added to inventory\n"
-                outcome += f"you craft {product.name} by action of {recipe.name} consuming {ingredient.name} in the process\n"
+                outcome += f"you craft {product.name} by action of {recipe.name} consuming {ingredient.name} in the process"
         return (None, outcome)
 
     def use(self, name, subject=None):
@@ -241,10 +241,10 @@ class Action:
         if name:
             for entity in self.entities.get_surroundings(self.entities.player):
                 if entity.name == name:
-                    response += f'{entity.description_long}\n'
+                    response += f'{entity.description_long}'
             for entity in self.entities.get_inventory(self.entities.player):
                 if entity.name == name:
-                    response += f'{entity.description_long}\n'
+                    response += f'{entity.description_long}'
         else:
             location = self.entities.entity(self.entities.player.location)
             response += f'{location.description_long}\n'
@@ -259,7 +259,7 @@ class Action:
         if object.name == "open_field" or object.name == "credits":
             return response
         else:
-            response += f"{object.name} contains: "
+            response += f"\n{object.name} contains: "
             response += ", ".join([entity.name for entity in self.entities.get_inventory(object)])
         return response
 
@@ -325,16 +325,16 @@ class Action:
             return (None, "impassable")
 
     def north(self):
-        self._cardinal("north")
+        return self._cardinal("north")
 
     def south(self):
-        self._cardinal("south")
+        return self._cardinal("south")
 
     def east(self):
-        self._cardinal("east")
+        return self._cardinal("east")
 
     def west(self):
-        self._cardinal("west")
+        return self._cardinal("west")
 
     def help(self):
         return (None, f"possible actions include: {self.actions}")

@@ -30,8 +30,8 @@ class Game:
                 print("Previous action:", self.previous_action)
                 print(self.parsley.action.look()[1])
                 start = True
-            else:
-                print("Previous action:", self.previous_action)
+            # else:
+                # print("Previous action:", self.previous_action)
             user_input = input("> ")
             reaction, response = self.parsley.parse_input(iter(user_input.split()), None)
             while reaction:
@@ -43,6 +43,7 @@ class Game:
                 print(self.location[0])
                 print(self.location[1])
                 build_output(self, self.location)
+            # print("Previous action:", self.previous_action)
             print(response)
 
 
@@ -61,9 +62,12 @@ def build_output(user, location):
 
 def get_art_width(location):
     max_width = 0
-    with open(f'art/{location}.txt', 'r') as f:
-        for line in f:
-            if len(line.rstrip()) > max_width: max_width = len(line.rstrip())
+    try:
+        with open(f'art/{location}.txt', 'r') as f:
+            for line in f:
+                if len(line.rstrip()) > max_width: max_width = len(line.rstrip())
+    except:
+        pass
     return max_width
 
 
