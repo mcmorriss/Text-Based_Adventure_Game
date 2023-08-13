@@ -16,11 +16,17 @@ class Game:
     previous_action = "look"
 
     def loop(self):
-        print(self.location)
+        #print(self.location)
         start = False
-        build_output(self, self.location)
+        start_menu = True
         while True:
-            if not start:
+            if start_menu:
+                print_start_menu()
+                val = input("Press enter to begin...")
+                start_menu = False
+                continue
+            elif not start:
+                build_output(self, self.location)
                 print("Previous action:", self.previous_action)
                 print(self.parsley.action.look()[1])
                 start = True
@@ -74,6 +80,15 @@ def build_divider(width):
 def build_ascii_art(location='square'):
     try:
         with open(f'art/{location[1]}.txt', 'r') as f:
+            for line in f:
+                print(line.rstrip())
+    except:
+        pass
+
+
+def print_start_menu():
+    try:
+        with open('art/start.txt', 'r') as f:
             for line in f:
                 print(line.rstrip())
     except:
