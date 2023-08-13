@@ -23,7 +23,7 @@ class Parsley:
             try:
                 return action.__get__(self.action, Action)()
             except Exception as e:
-                print(e)
+                # print(e)
                 return(None, "I'm sorry; I'm not sure what you mean.")
         # if the next word is the name of an action
         # pass that action as an argument to our current action
