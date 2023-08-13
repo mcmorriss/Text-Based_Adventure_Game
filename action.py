@@ -186,11 +186,15 @@ class Action:
 
     def loadgame(self):
         self.entities.load_entities("data/save")
+        return(None, '')
 
     def savegame(self):
         for entity in self.entities():
+            entity.description_long = entity.description_long.split('\n')
+            entity.dialogue = entity.dialogue.split('\n')
             with open(f"data/save/{entity.name}.json", "w") as file:
                 file.write(entity.to_json())
+        return(None, '')
 
     def inventory(self):
         status = "status_effect"
