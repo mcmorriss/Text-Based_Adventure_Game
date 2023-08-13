@@ -40,8 +40,8 @@ class Game:
             self.location.append(self.parsley.action.entities.entity(self.parsley.action.entities.player.location).name)
             self.previous_action = user_input
             if self.location[0] != self.location[1]:
-                print(self.location[0])
-                print(self.location[1])
+                # print(self.location[0])
+                # print(self.location[1])
                 build_output(self, self.location)
             # print("Previous action:", self.previous_action)
             print(response)
