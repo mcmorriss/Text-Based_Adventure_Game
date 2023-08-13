@@ -39,8 +39,10 @@ class Game:
                 build_output(self, self.location)
             print(response)
 
+
 def build_output(user, location):
-    divider = build_divider()
+    art_width = get_art_width(user.location[1])
+    divider = build_divider(art_width)
     print(divider)
     print("Text-Based Adventure Game".center(len(divider)))
     print(divider)
@@ -51,9 +53,17 @@ def build_output(user, location):
     print(divider)
 
 
-def build_divider():
-    terminal_width = shutil.get_terminal_size().columns
-    width = 100
+def get_art_width(location):
+    max_width = 0
+    with open(f'art/{location}.txt', 'r') as f:
+        for line in f:
+            if len(line.rstrip()) > max_width: max_width = len(line.rstrip())
+    return max_width
+
+
+def build_divider(width):
+    # terminal_width = shutil.get_terminal_size().columns
+    # width = 75
     divider = "+"
     for i in range(width):
         divider += "—"
