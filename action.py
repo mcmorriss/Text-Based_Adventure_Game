@@ -264,7 +264,7 @@ class Action:
         return response
 
     def walk(self, name):
-        self.go(name)
+        return self.go(name)
 
     def sneak(self, subject=None):
         subject = self.entities.player if subject is None else self.entities.entity(subject)
